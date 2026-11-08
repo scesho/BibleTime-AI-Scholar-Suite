@@ -189,9 +189,13 @@ function Fetch-WithCurl($fileName, $destFile) {
 
 $BtnAction.Add_Click({
     if ($State.Installed) {
+        $pyw = Join-Path $InstallDir ".venv_win\Scripts\pythonw.exe"
         $bat = Join-Path $InstallDir "AVVIA_WINDOWS.bat"
-        if (Test-Path $bat) {
-            Start-Process -FilePath $bat -WorkingDirectory $InstallDir
+        if (Test-Path $pyw) {
+            Start-Process -FilePath $pyw -ArgumentList "launch.py" -WorkingDirectory $InstallDir
+            $Window.Close()
+        } elseif (Test-Path $bat) {
+            Start-Process -FilePath $bat -WorkingDirectory $InstallDir -WindowStyle Hidden
             $Window.Close()
         }
         return
@@ -243,6 +247,7 @@ $BtnAction.Add_Click({
             $reqFile = Join-Path $InstallDir "requirements.txt"
             & $venvPy -m pip install --upgrade pip --quiet
             & $venvPy -m pip install -r "$reqFile" --quiet
+            Set-Content -Path (Join-Path $venvDir ".deps_ok") -Value "ok" -Encoding ASCII
         }
         $L3.Text = "- [$CHECK] Ambiente .venv_win e librerie configurate"; $L3.Foreground = "#10B981"
 
