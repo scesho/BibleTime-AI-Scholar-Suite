@@ -1,0 +1,51 @@
+PROPRIETARY AND COMMERCIAL SOFTWARE LICENSE AGREEMENT
+=====================================================
+BibleTime AI Scholar Suite — Commercial Proprietary Edition
+Copyright (C) 2024-2026 Alfaomega S.r.l. All Rights Reserved.
+
+IMPORTANT NOTICE — READ CAREFULLY:
+This Software License Agreement ("Agreement") is a legal agreement between 
+you (either an individual or a single legal entity, "Licensee") and 
+the author/copyright owner Alfaomega S.r.l. ("Licensor").
+
+1. GRANT OF LICENSE
+Subject to payment of the applicable license fee (199 EUR + VAT per user)
+or valid trial status, Licensor grants Licensee a personal, non-exclusive,
+non-transferable, commercial license to install and use BibleTime AI Scholar
+Suite on up to two (2) hardware-identified computers strictly owned or 
+operated by Licensee.
+Lifetime product updates are included with the perpetual license.
+
+2. OWNERSHIP AND INTELLECTUAL PROPERTY
+The Software, including its source code, architecture, algorithms, UI designs,
+Scriptorium AI prompts, proprietary databases, and documentation, is the
+exclusive intellectual property of Licensor and is protected by international
+copyright treaties and intellectual property laws.
+
+3. RESTRICTIONS
+Licensee shall NOT:
+  a) Reverse engineer, decompile, decrypt, disassemble, or derive source code
+     from any binary, bundle, or encrypted package of the Software;
+  b) Sublicense, resell, rent, lease, distribute, host, or publish the Software
+     or any license key / signature file (.btlic) to third parties;
+  c) Modify, bypass, tamper with, or circumvent the hardware-bound license
+     verification, clock integrity checks, or anti-rollback safeguards;
+  d) Extract, scrape, or repackage proprietary prompt matrices, RAG vector
+     embeddings, or curated scholarly datasets for competing software.
+
+4. TRIAL PERIOD
+Unregistered trial usage is permitted for thirty (30) days from first installation,
+limited to seven (7) AI academic studies per calendar day. Upon expiration of the
+trial period, continued usage of academic AI modules requires the acquisition of
+a valid lifetime commercial license key.
+
+5. THIRD-PARTY MODULES AND PUBLIC DOMAIN WORKS
+Public domain texts, Sword Project public modules, patristic writings, and open
+scholarly datasets bundled or downloaded via the Software remain governed by their
+respective open licenses and public domain status as detailed in THIRD_PARTY_LICENSES.md.
+
+6. DISCLAIMER OF WARRANTY AND LIMITATION OF LIABILITY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. IN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE.
+=====================================================
