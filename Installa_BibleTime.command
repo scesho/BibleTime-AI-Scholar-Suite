@@ -30,9 +30,12 @@ mkdir -p "$INSTALL_DIR" "$TMP_DIR"
 fetch_with_curl() {
     local fname="$1"
     local dest="$2"
-    if [ -f "$LOCAL_DIST/$fname" ]; then
-        curl -fSL "file://$LOCAL_DIST/$fname" -o "$dest" && return 0
-    fi
+    for src in "$LOCAL_DIST/$fname" "$SCRIPT_DIR/$fname" "$HOME/Downloads/$fname"; do
+        if [ -f "$src" ]; then
+            echo "[*] Trovato $fname in locale ($src)!"
+            cp -f "$src" "$dest" && return 0
+        fi
+    done
     curl -fSL "$GITHUB_BASE/$fname" -o "$dest"
 }
 
@@ -54,7 +57,13 @@ fi
 osascript -e 'display notification "2/5 • Download BibleTime_AI_Suite.zip (curl)..." with title "BibleTime AI Scholar Suite"' 2>/dev/null || true
 fetch_with_curl "BibleTime_AI_Suite.zip" "$TMP_DIR/BibleTime_AI_Suite.zip"
 
-osascript -e 'display notification "3/5 • Estrazione Biblioteca Accademica e 348 moduli SWORD..." with title "BibleTime AI Scholar Suite"' 2>/dev/null || true
+ZIP_SIZE=$(stat -f%z "$TMP_DIR/BibleTime_AI_Suite.zip" 2>/dev/null || echo 0)
+if [ ! -f "$TMP_DIR/BibleTime_AI_Suite.zip" ] || [ "$ZIP_SIZE" -lt 10000000 ]; then
+    osascript -e 'display alert "Download Incompleto" message "BibleTime_AI_Suite.zip non è stato scaricato correttamente o è incompleto.\nVerifica la connessione o inserisci il file nella cartella Downloads." as critical' 2>/dev/null || true
+    exit 1
+fi
+
+osascript -e 'display notification "3/5 • Estrazione Biblioteca Accademica e 518 moduli SWORD..." with title "BibleTime AI Scholar Suite"' 2>/dev/null || true
 unzip -qo "$TMP_DIR/BibleTime_AI_Suite.zip" -d "$INSTALL_DIR"
 chmod +x "$INSTALL_DIR"/*.command "$INSTALL_DIR"/*.sh 2>/dev/null || true
 xattr -dr com.apple.quarantine "$INSTALL_DIR" 2>/dev/null || true
