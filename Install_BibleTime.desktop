@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Install BibleTime AI Scholar Suite
+GenericName=BibleTime AI Installer
+Comment=Install and setup BibleTime AI Scholar Suite on Linux
+Exec=bash -c "curl -fsSL https://raw.githubusercontent.com/scesho/BibleTime-AI-Scholar-Suite/installer/install_linux.sh -o /tmp/install_bibletime.sh && bash /tmp/install_bibletime.sh; echo; read -p 'Press ENTER to exit...' -n 1 -r"
+Icon=system-software-install
+Terminal=true
+Categories=Utility;Application;Education;
