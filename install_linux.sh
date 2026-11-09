@@ -120,6 +120,12 @@ command -v xdg-user-dir &>/dev/null && DESKTOP_DIR="$(xdg-user-dir DESKTOP 2>/de
 
 ICON_PATH="$INSTALL_DIR/app.png"
 [ ! -f "$ICON_PATH" ] && fetch_file "app.png" "$ICON_PATH" 2>/dev/null || true
+chmod 644 "$ICON_PATH" 2>/dev/null || true
+
+# Registra anche nel tema icone utente standard di Linux
+mkdir -p "$HOME/.local/share/icons/hicolor/256x256/apps" 2>/dev/null || true
+[ -f "$ICON_PATH" ] && cp -f "$ICON_PATH" "$HOME/.local/share/icons/hicolor/256x256/apps/bibletime.png" 2>/dev/null || true
+command -v gtk-update-icon-cache &>/dev/null && gtk-update-icon-cache -f -t "$HOME/.local/share/icons/hicolor" 2>/dev/null || true
 
 DESKTOP_FILE="$DESKTOP_DIR/BibleTime_AI_Scholar_Suite.desktop"
 cat > "$DESKTOP_FILE" <<EOF
@@ -137,8 +143,9 @@ Categories=Education;Science;Religion;
 StartupWMClass=BibleTime AI
 EOF
 
-chmod +x "$DESKTOP_FILE" 2>/dev/null || true
+chmod a+x "$DESKTOP_FILE" 2>/dev/null || true
 command -v gio &>/dev/null && gio set "$DESKTOP_FILE" metadata::trusted true 2>/dev/null || true
+command -v gio &>/dev/null && gio set "$DESKTOP_FILE" "metadata::trusted" yes 2>/dev/null || true
 
 USER_APPS="$HOME/.local/share/applications"
 [ -d "$USER_APPS" ] && cp -f "$DESKTOP_FILE" "$USER_APPS/BibleTime_AI_Scholar_Suite.desktop" 2>/dev/null || true
