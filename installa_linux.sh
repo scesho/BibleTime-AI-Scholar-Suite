@@ -6,10 +6,10 @@
 # Zero God Code: < 170 righe.
 # ==============================================================================
 
-# Se avviato senza terminale (es. doppio clic da file manager), rilanciati in un emulatore di terminale
-if [ ! -t 0 ] && [ -z "$BIBLETIME_IN_TERMINAL" ]; then
+# Se avviato senza terminale visibile (es. doppio clic su .sh da file manager) e solo se $0 è un file reale su disco
+if [ ! -t 1 ] && [ -z "$BIBLETIME_IN_TERMINAL" ] && [ -f "$0" ]; then
     export BIBLETIME_IN_TERMINAL=1
-    SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+    SCRIPT_PATH="$(cd "$(dirname "$0")" 2>/dev/null && pwd)/$(basename "$0")"
     for term in gnome-terminal xfce4-terminal konsole mate-terminal xterm alacritty kitty; do
         if command -v "$term" &>/dev/null; then
             case "$term" in
@@ -125,28 +125,48 @@ if [ -f "$INSTALL_DIR/dist/index.html" ]; then
     "$INSTALL_DIR/.venv_linux/bin/python" -c "p='$INSTALL_DIR/dist/index.html'; h=open(p).read(); b=\"<script>localStorage.setItem('bibletime_lang','$LANG_CODE');localStorage.setItem('bibletime_app_language','$LANG_CODE');</script>\"; open(p,'w').write(h.replace('<head>','<head>'+b,1)) if 'bibletime_lang' not in h else None" 2>/dev/null || true
 fi
 
-DESKTOP_DIR="$HOME/Desktop"
-[ ! -d "$DESKTOP_DIR" ] && DESKTOP_DIR="$HOME/Scrivania"
-[ ! -d "$DESKTOP_DIR" ] && DESKTOP_DIR="$HOME"
+# Rilevamento dinamico cartella Desktop (supporta Scrivania, Desktop, Escritorio)
+DESKTOP_DIR=""
+if command -v xdg-user-dir &>/dev/null; then
+    DESKTOP_DIR="$(xdg-user-dir DESKTOP 2>/dev/null)"
+fi
+[ -z "$DESKTOP_DIR" ] && [ -d "$HOME/Desktop" ] && DESKTOP_DIR="$HOME/Desktop"
+[ -z "$DESKTOP_DIR" ] && [ -d "$HOME/Scrivania" ] && DESKTOP_DIR="$HOME/Scrivania"
+[ -z "$DESKTOP_DIR" ] && [ -d "$HOME/Escritorio" ] && DESKTOP_DIR="$HOME/Escritorio"
+[ -z "$DESKTOP_DIR" ] && DESKTOP_DIR="$HOME"
+
+# Copia icona grafica ad alta definizione
+ICON_PATH="$INSTALL_DIR/app.png"
+[ ! -f "$ICON_PATH" ] && fetch_file "app.png" "$ICON_PATH" 2>/dev/null || true
 
 DESKTOP_FILE="$DESKTOP_DIR/BibleTime_AI_Scholar_Suite.desktop"
 cat > "$DESKTOP_FILE" <<EOF
 [Desktop Entry]
+Version=1.0
 Type=Application
 Name=BibleTime AI Scholar Suite
-Comment=Accademia Esegetica & Biblioteca Teologica AI
+GenericName=Accademia Esegetica & Biblioteca Teologica AI
+Comment=Suite esegetica accademica avanzata con 518 moduli SWORD e intelligenza artificiale
 Exec=$INSTALL_DIR/avvia_linux.sh
 Path=$INSTALL_DIR
-Icon=accessories-dictionary
+Icon=$ICON_PATH
 Terminal=false
-Categories=Education;Science;
+Categories=Education;Science;Religion;
+StartupWMClass=BibleTime AI
 EOF
-chmod +x "$DESKTOP_FILE" 2>/dev/null || true
 
-# Registra anche nel menu delle applicazioni di sistema Linux
+chmod +x "$DESKTOP_FILE" 2>/dev/null || true
+# Consenti l'avvio immediato su GNOME/Ubuntu senza avvisi di sicurezza
+if command -v gio &>/dev/null; then
+    gio set "$DESKTOP_FILE" metadata::trusted true 2>/dev/null || true
+    gio set "$DESKTOP_FILE" "metadata::trusted" yes 2>/dev/null || true
+fi
+
+# Registra anche nel menu Applicazioni di sistema Linux (~/.local/share/applications)
 USER_APPS="$HOME/.local/share/applications"
 if [ -d "$USER_APPS" ]; then
-    cp -f "$DESKTOP_FILE" "$USER_APPS/" 2>/dev/null || true
+    cp -f "$DESKTOP_FILE" "$USER_APPS/BibleTime_AI_Scholar_Suite.desktop" 2>/dev/null || true
+    update-desktop-database "$USER_APPS" 2>/dev/null || true
 fi
 
 # Pulizia temporanei
@@ -161,3 +181,4 @@ echo
 if [ -x "$INSTALL_DIR/avvia_linux.sh" ]; then
     nohup "$INSTALL_DIR/avvia_linux.sh" >/dev/null 2>&1 &
 fi
+
