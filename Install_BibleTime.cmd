@@ -1,16 +1,26 @@
 @echo off
 chcp 65001 >nul
-title BibleTime AI Scholar Suite - Avvio Setup Grafico
+title BibleTime AI Scholar Suite - Avvio Setup
 more +7 "%~f0" > "%TEMP%\bt_setup_wizard.ps1"
-powershell.exe -WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -File "%TEMP%\bt_setup_wizard.ps1"
+start "" /b powershell.exe -WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -File "%TEMP%\bt_setup_wizard.ps1"
 exit /b 0
 :: ===== POWERSHELL GUI WIZARD =====
 # ==============================================================================
 # BIBLETIME AI SCHOLAR SUITE - LUXURY VISUAL SETUP WIZARD (WINDOWS WPF)
 # 100% Pure-ASCII safe for Windows PowerShell 5.1 & PowerShell 7 across all locales.
 # Downloads via curl.exe, configures Python 3.12 Standalone + .venv_win + Language.
-# Strictly under 280 lines.
+# Strictly under 280 lines. Zero external console windows.
 # ==============================================================================
+
+# 1. HIDE ANY HOSTING WINDOWS CONSOLE IMMEDIATELY
+try {
+    Add-Type -Name Win32Console -Namespace Native -MemberDefinition @"
+[DllImport("kernel32.dll")] public static extern IntPtr GetConsoleWindow();
+[DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+"@ -ErrorAction SilentlyContinue
+    $h = [Native.Win32Console]::GetConsoleWindow()
+    if ($h -ne [IntPtr]::Zero) { [Native.Win32Console]::ShowWindow($h, 0) }
+} catch {}
 
 Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase, System.Windows.Forms
 
@@ -73,9 +83,9 @@ $I18N = @{
 [xml]$Xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="BibleTime AI Scholar Suite - Setup Wizard" Width="700" Height="550"
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#0B1120" Foreground="#F8FAFC">
-    <Grid Margin="28">
+        Title="BibleTime AI Scholar Suite - Setup Wizard" Width="720" Height="620"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Background="#0B1120" Foreground="#F8FAFC">
+    <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -83,54 +93,66 @@ $I18N = @{
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,18">
-            <TextBlock Text="BIBLETIME AI SCHOLAR SUITE" FontSize="22" FontWeight="Bold" Foreground="#38BDF8"/>
-            <TextBlock x:Name="TxtSub" Text="INSTALLAZIONE AUTOMATICA ASSISTITA" FontSize="11" Foreground="#94A3B8" Margin="0,4,0,0"/>
+        <StackPanel Grid.Row="0" Margin="0,0,0,14">
+            <TextBlock Text="BIBLETIME AI SCHOLAR SUITE" FontSize="20" FontWeight="Bold" Foreground="#38BDF8"/>
+            <TextBlock x:Name="TxtSub" Text="INSTALLAZIONE AUTOMATICA ASSISTITA" FontSize="11" Foreground="#94A3B8" Margin="0,3,0,0"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Margin="0,0,0,16">
-            <TextBlock x:Name="TxtChoose" Text="1. Seleziona la lingua predefinita del software:" FontSize="13" FontWeight="SemiBold" Foreground="#E2E8F0" Margin="0,0,0,10"/>
+        <StackPanel Grid.Row="1" Margin="0,0,0,14">
+            <TextBlock x:Name="TxtChoose" Text="1. Seleziona la lingua predefinita del software:" FontSize="12" FontWeight="SemiBold" Foreground="#E2E8F0" Margin="0,0,0,8"/>
             <UniformGrid Columns="3" HorizontalAlignment="Stretch">
-                <Button x:Name="BtnIt" Margin="0,0,8,0" Padding="12" Background="#0F172A" Foreground="White" BorderBrush="#38BDF8" BorderThickness="2" Cursor="Hand">
+                <Button x:Name="BtnIt" Margin="0,0,6,0" Padding="10" Background="#0F172A" Foreground="White" BorderBrush="#38BDF8" BorderThickness="2" Cursor="Hand">
                     <StackPanel>
-                        <TextBlock Text="[IT]  Italiano" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Edizione Italiana" FontSize="10" Foreground="#94A3B8" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                        <TextBlock Text="[IT]  Italiano" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Edizione Italiana" FontSize="10" Foreground="#94A3B8" HorizontalAlignment="Center" Margin="0,2,0,0"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="BtnEn" Margin="4,0,4,0" Padding="12" Background="#0F172A" Foreground="White" BorderBrush="#334155" BorderThickness="1" Cursor="Hand">
+                <Button x:Name="BtnEn" Margin="3,0,3,0" Padding="10" Background="#0F172A" Foreground="White" BorderBrush="#334155" BorderThickness="1" Cursor="Hand">
                     <StackPanel>
-                        <TextBlock Text="[EN]  English" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="KJV Scholar Suite" FontSize="10" Foreground="#94A3B8" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                        <TextBlock Text="[EN]  English" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="KJV Scholar Suite" FontSize="10" Foreground="#94A3B8" HorizontalAlignment="Center" Margin="0,2,0,0"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="BtnEs" Margin="8,0,0,0" Padding="12" Background="#0F172A" Foreground="White" BorderBrush="#334155" BorderThickness="1" Cursor="Hand">
+                <Button x:Name="BtnEs" Margin="6,0,0,0" Padding="10" Background="#0F172A" Foreground="White" BorderBrush="#334155" BorderThickness="1" Cursor="Hand">
                     <StackPanel>
-                        <TextBlock Text="[ES]  Espanol" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Reina-Valera Suite" FontSize="10" Foreground="#94A3B8" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                        <TextBlock Text="[ES]  Espanol" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Reina-Valera Suite" FontSize="10" Foreground="#94A3B8" HorizontalAlignment="Center" Margin="0,2,0,0"/>
                     </StackPanel>
                 </Button>
             </UniformGrid>
         </StackPanel>
 
-        <Border Grid.Row="2" Background="#0F172A" BorderBrush="#1E293B" BorderThickness="1" CornerRadius="10" Padding="18" Margin="0,0,0,16">
-            <StackPanel VerticalAlignment="Center">
-                <Grid Margin="0,0,0,8">
-                    <TextBlock x:Name="TxtStep" Text="Pronto per l'installazione automatica." FontSize="13" FontWeight="SemiBold" Foreground="#38BDF8"/>
-                    <TextBlock x:Name="TxtPct" Text="0%" FontSize="13" FontWeight="Bold" Foreground="#10B981" HorizontalAlignment="Right"/>
-                </Grid>
-                <ProgressBar x:Name="ProgBar" Height="16" Minimum="0" Maximum="100" Value="0" Background="#1E293B" Foreground="#10B981" BorderThickness="0"/>
-                <TextBlock x:Name="TxtDetail" Text="Destinazione: $InstallDir" FontSize="11" Foreground="#94A3B8" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                <StackPanel x:Name="LogPanel" Margin="0,12,0,0">
-                    <TextBlock x:Name="L1" Text="- [ ] Runtime Python 3.12 Portatile Standalone (Zero installazioni manuali)" FontSize="11" Foreground="#64748B" Margin="0,2"/>
-                    <TextBlock x:Name="L2" Text="- [ ] Archivio Universale BibleTime_AI_Suite.zip (via curl)" FontSize="11" Foreground="#64748B" Margin="0,2"/>
-                    <TextBlock x:Name="L3" Text="- [ ] Ambiente Virtuale .venv_win + Librerie FastAPI / SWORD / RAG" FontSize="11" Foreground="#64748B" Margin="0,2"/>
-                    <TextBlock x:Name="L4" Text="- [ ] Pre-configurazione Lingua e Collegamento sul Desktop" FontSize="11" Foreground="#64748B" Margin="0,2"/>
+        <Border Grid.Row="2" Background="#0F172A" BorderBrush="#1E293B" BorderThickness="1" CornerRadius="8" Padding="14" Margin="0,0,0,14">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Top">
+                    <Grid Margin="0,0,0,6">
+                        <TextBlock x:Name="TxtStep" Text="Pronto per l'installazione automatica." FontSize="12" FontWeight="SemiBold" Foreground="#38BDF8"/>
+                        <TextBlock x:Name="TxtPct" Text="0%" FontSize="12" FontWeight="Bold" Foreground="#10B981" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <ProgressBar x:Name="ProgBar" Height="12" Minimum="0" Maximum="100" Value="0" Background="#1E293B" Foreground="#10B981" BorderThickness="0"/>
+                    <TextBlock x:Name="TxtDetail" Text="Destinazione: $InstallDir" FontSize="10" Foreground="#94A3B8" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                    <UniformGrid Columns="2" Margin="0,6,0,0">
+                        <TextBlock x:Name="L1" Text="- [ ] Runtime Python 3.12" FontSize="10" Foreground="#64748B" Margin="0,1"/>
+                        <TextBlock x:Name="L2" Text="- [ ] BibleTime_AI_Suite.zip" FontSize="10" Foreground="#64748B" Margin="0,1"/>
+                        <TextBlock x:Name="L3" Text="- [ ] Librerie e .venv_win" FontSize="10" Foreground="#64748B" Margin="0,1"/>
+                        <TextBlock x:Name="L4" Text="- [ ] Collegamento Desktop" FontSize="10" Foreground="#64748B" Margin="0,1"/>
+                    </UniformGrid>
                 </StackPanel>
-            </StackPanel>
+
+                <Border Margin="0,8,0,0" Background="#050814" BorderBrush="#1E293B" BorderThickness="1" CornerRadius="6" Padding="6">
+                    <DockPanel LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Top" Text="TERMINALE LIVE DI INSTALLAZIONE" FontSize="9" FontWeight="Bold" Foreground="#475569" Margin="2,0,0,3"/>
+                        <TextBox x:Name="TxtConsole" Background="Transparent" Foreground="#38BDF8" BorderThickness="0" 
+                                 FontFamily="Consolas, Lucida Console, Courier New" FontSize="10" 
+                                 IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                 Text="[Setup] Seleziona la lingua e premi 'Inizia Installazione Automatica'." />
+                    </DockPanel>
+                </Border>
+            </DockPanel>
         </Border>
 
         <Grid Grid.Row="3">
-            <Button x:Name="BtnAction" Content="Inizia Installazione Automatica" Height="46" FontSize="14" FontWeight="Bold"
+            <Button x:Name="BtnAction" Content="Inizia Installazione Automatica" Height="44" FontSize="13" FontWeight="Bold"
                     Background="#0284C7" Foreground="White" BorderThickness="0" Cursor="Hand"/>
         </Grid>
     </Grid>
@@ -149,10 +171,18 @@ $TxtStep = $Window.FindName("TxtStep")
 $TxtPct = $Window.FindName("TxtPct")
 $ProgBar = $Window.FindName("ProgBar")
 $TxtDetail = $Window.FindName("TxtDetail")
+$TxtConsole = $Window.FindName("TxtConsole")
 $L1 = $Window.FindName("L1"); $L2 = $Window.FindName("L2"); $L3 = $Window.FindName("L3"); $L4 = $Window.FindName("L4")
 $BtnAction = $Window.FindName("BtnAction")
 
 $State = [hashtable]::Synchronized(@{ Lang = "it"; Installed = $false; Running = $false })
+
+function Log-Console([string]$msg) {
+    if (-not $msg) { return }
+    $TxtConsole.AppendText("`r`n$msg")
+    $TxtConsole.ScrollToEnd()
+    [System.Windows.Forms.Application]::DoEvents()
+}
 
 function Select-Lang($lang) {
     if ($State.Running) { return }
@@ -182,15 +212,68 @@ function Update-UI($pct, $stepText, $detailText) {
     [System.Windows.Forms.Application]::DoEvents()
 }
 
+function Run-CliLogged($cmd, $args, $label) {
+    Log-Console "[$label] Esecuzione: $cmd $args"
+    $pinfo = New-Object System.Diagnostics.ProcessStartInfo
+    $pinfo.FileName = $cmd
+    $pinfo.Arguments = $args
+    $pinfo.UseShellExecute = $false
+    $pinfo.RedirectStandardOutput = $true
+    $pinfo.RedirectStandardError = $true
+    $pinfo.CreateNoWindow = $true
+    $p = [System.Diagnostics.Process]::Start($pinfo)
+    while (-not $p.HasExited) {
+        Start-Sleep -Milliseconds 80
+        [System.Windows.Forms.Application]::DoEvents()
+    }
+    $p.WaitForExit()
+    $out = $p.StandardOutput.ReadToEnd()
+    $err = $p.StandardError.ReadToEnd()
+    if ($out) { Log-Console $out.Trim() }
+    if ($err) { Log-Console $err.Trim() }
+}
+
 function Fetch-WithCurl($fileName, $destFile) {
     $localCandidate = Join-Path $LocalDistDir $fileName
     if (Test-Path $localCandidate) {
-        $fileUri = "file:///" + ($localCandidate -replace "\\", "/")
-        & curl.exe -fSL "$fileUri" -o "$destFile" 2>$null
-        if (Test-Path $destFile) { return $true }
+        Log-Console "[Locale] Pacchetto trovato: $fileName"
+        Copy-Item -Path $localCandidate -Destination $destFile -Force
+        if (Test-Path $destFile) { 
+            Log-Console "[OK] Copia completata: $fileName"
+            return $true 
+        }
     }
     $remoteUrl = "$GithubBaseUrl/$fileName"
-    & curl.exe -fSL "$remoteUrl" -o "$destFile"
+    Log-Console "[CURL] Download: $remoteUrl"
+    
+    $pinfo = New-Object System.Diagnostics.ProcessStartInfo
+    $pinfo.FileName = "curl.exe"
+    $pinfo.Arguments = "-fSL --progress-bar `"$remoteUrl`" -o `"$destFile`""
+    $pinfo.UseShellExecute = $false
+    $pinfo.RedirectStandardError = $true
+    $pinfo.CreateNoWindow = $true
+    $p = [System.Diagnostics.Process]::Start($pinfo)
+    
+    $stderrReader = $p.StandardError
+    $lastUpdate = [DateTime]::MinValue
+    while (-not $p.HasExited) {
+        $line = $stderrReader.ReadLine()
+        if ($line) {
+            $lineClean = $line.Trim()
+            if ($lineClean -and ([DateTime]::Now - $lastUpdate).TotalMilliseconds -gt 250) {
+                $TxtConsole.AppendText("`r`n$fileName : $lineClean")
+                $TxtConsole.ScrollToEnd()
+                $TxtDetail.Text = "$fileName : $lineClean"
+                [System.Windows.Forms.Application]::DoEvents()
+                $lastUpdate = [DateTime]::Now
+            }
+        } else {
+            Start-Sleep -Milliseconds 50
+        }
+        [System.Windows.Forms.Application]::DoEvents()
+    }
+    $p.WaitForExit()
+    Log-Console "[OK] Download completato: $fileName"
     return (Test-Path $destFile)
 }
 
@@ -217,19 +300,19 @@ $BtnAction.Add_Click({
         $TmpDir = Join-Path $env:TEMP "BibleTime_Setup_Tmp"
         New-Item -ItemType Directory -Force -Path $TmpDir | Out-Null
 
-        # STEP 1: Python Standalone via curl
+        # STEP 1: Python Standalone
         Update-UI 10 $t.s1 "curl -> python_standalone_win_x64.tar.gz"
         $pyTar = Join-Path $TmpDir "python_standalone_win_x64.tar.gz"
         $pyDir = Join-Path $InstallDir "python_standalone"
         if (-not (Test-Path (Join-Path $pyDir "python.exe"))) {
             if (Fetch-WithCurl "python_standalone_win_x64.tar.gz" $pyTar) {
                 New-Item -ItemType Directory -Force -Path $pyDir | Out-Null
-                & tar.exe -xzf "$pyTar" -C "$pyDir" --strip-components=1 2>$null
+                Run-CliLogged "tar.exe" "-xzf `"$pyTar`" -C `"$pyDir`" --strip-components=1" "TAR"
             }
         }
         $L1.Text = "- [$CHECK] Runtime Python 3.12 Portatile pronto"; $L1.Foreground = "#10B981"
 
-        # STEP 2: BibleTime_AI_Suite.zip via curl
+        # STEP 2: BibleTime_AI_Suite.zip
         Update-UI 35 $t.s2 "curl -> BibleTime_AI_Suite.zip"
         $suiteZip = Join-Path $TmpDir "BibleTime_AI_Suite.zip"
         if (-not (Fetch-WithCurl "BibleTime_AI_Suite.zip" $suiteZip)) {
@@ -239,7 +322,7 @@ $BtnAction.Add_Click({
 
         # STEP 3: Extract zip
         Update-UI 60 $t.s3 "Estrazione archivio in $InstallDir ..."
-        & tar.exe -xf "$suiteZip" -C "$InstallDir"
+        Run-CliLogged "tar.exe" "-xf `"$suiteZip`" -C `"$InstallDir`"" "TAR"
         Update-UI 75 $t.s4 "Creazione .venv_win e installazione dipendenze..."
 
         # STEP 4: Create .venv_win
@@ -247,13 +330,13 @@ $BtnAction.Add_Click({
         if (-not (Test-Path $pyExe)) { $pyExe = "python" }
         $venvDir = Join-Path $InstallDir ".venv_win"
         if (-not (Test-Path (Join-Path $venvDir "Scripts\python.exe"))) {
-            & $pyExe -m venv "$venvDir"
+            Run-CliLogged "$pyExe" "-m venv `"$venvDir`"" "VENV"
         }
         $venvPy = Join-Path $venvDir "Scripts\python.exe"
         if (Test-Path $venvPy) {
             $reqFile = Join-Path $InstallDir "requirements.txt"
-            & $venvPy -m pip install --upgrade pip --quiet
-            & $venvPy -m pip install -r "$reqFile" --quiet
+            Run-CliLogged "$venvPy" "-m pip install --upgrade pip --quiet" "PIP"
+            Run-CliLogged "$venvPy" "-m pip install -r `"$reqFile`" --quiet" "PIP"
             Set-Content -Path (Join-Path $venvDir ".deps_ok") -Value "ok" -Encoding ASCII
         }
         $L3.Text = "- [$CHECK] Ambiente .venv_win e librerie configurate"; $L3.Foreground = "#10B981"
@@ -279,11 +362,14 @@ $BtnAction.Add_Click({
             }
         }
         $scScript = Join-Path $InstallDir "create_shortcut.ps1"
-        if (Test-Path $scScript) { & powershell -ExecutionPolicy Bypass -File $scScript }
+        if (Test-Path $scScript) {
+            Run-CliLogged "powershell.exe" "-ExecutionPolicy Bypass -File `"$scScript`"" "SHORTCUT"
+        }
         $L4.Text = "- [$CHECK] Lingua '$($lang.ToUpper())' e icona Desktop attivate"; $L4.Foreground = "#10B981"
 
         # STEP 6: Done
         Update-UI 100 $t.s6 $t.readyMsg
+        Log-Console "[OK] $t.readyMsg"
         $State.Installed = $true
         $State.Running = $false
         $BtnAction.Content = $t.btnLaunch
@@ -292,6 +378,7 @@ $BtnAction.Add_Click({
     } catch {
         $TxtStep.Text = "Errore durante l'installazione:"
         $TxtDetail.Text = $_.Exception.Message
+        Log-Console "[ERRORE] $($_.Exception.Message)"
         $State.Running = $false
         $BtnAction.IsEnabled = $true
     }
