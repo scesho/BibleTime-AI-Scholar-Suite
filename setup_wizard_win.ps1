@@ -373,6 +373,13 @@ $BtnAction.Add_Click({
 
         # STEP 3: Extract zip (58% -> 72%)
         Update-UI 58 $t.s3 "Estrazione archivio in $InstallDir (~35s)..."
+        # Chiude eventuali istanze precedenti e pulisce vecchi WAL/SHM SQLite prima di sovrascrivere i DB
+        try {
+            Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object {
+                $_.ExecutablePath -and $_.ExecutablePath.StartsWith($InstallDir, [System.StringComparison]::OrdinalIgnoreCase)
+            } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
+            Get-ChildItem -Path $InstallDir -Recurse -Include "*.db-wal","*.db-shm" -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
+        } catch {}
         Run-CliLogged "tar.exe" "-xf `"$suiteZip`" -C `"$InstallDir`"" "TAR" 58 72 35
         Update-UI 72 $t.s4 "Creazione .venv_win e installazione dipendenze (~1-2m)..."
 
@@ -399,7 +406,7 @@ $BtnAction.Add_Click({
             $cfgPath = Join-Path $InstallDir "server\router\$cfgName"
             if (Test-Path $cfgPath) {
                 $raw = Get-Content $cfgPath -Raw -Encoding UTF8 | ConvertFrom-Json
-                $raw.language = $lang
+                $raw | Add-Member -NotePropertyName "language" -NotePropertyValue $lang -Force
                 $raw | ConvertTo-Json -Depth 6 | Set-Content $cfgPath -Encoding UTF8
             }
         }
