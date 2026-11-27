@@ -51,6 +51,9 @@ $I18N = @{
         s4 = "4/6 $BULLET Generazione automatica ambiente .venv_win e librerie..."
         s5 = "5/6 $BULLET Pre-configurazione lingua Italiana e creazione icona Desktop..."
         s6 = "6/6 $BULLET Verifica finale completata con successo!"
+        lblElapsed = "trascorsi"
+        lblLeft = "rimasti"
+        lblAlmost = "quasi finito..."
     }
     en = @{
         sub = "AUTOMATED VISUAL INSTALLER $BULLET ACADEMIC SCHOLAR EDITION"
@@ -64,6 +67,9 @@ $I18N = @{
         s4 = "4/6 $BULLET Generating isolated .venv_win environment & dependencies..."
         s5 = "5/6 $BULLET Pre-configuring English language & creating Desktop shortcut..."
         s6 = "6/6 $BULLET Final verification completed successfully!"
+        lblElapsed = "elapsed"
+        lblLeft = "left"
+        lblAlmost = "almost done..."
     }
     es = @{
         sub = "INSTALADOR VISUAL AUTOMATICO $BULLET EDICION ACADEMICA"
@@ -77,6 +83,9 @@ $I18N = @{
         s4 = "4/6 $BULLET Generando entorno .venv_win y librerias automaticamente..."
         s5 = "5/6 $BULLET Preconfigurando idioma Espanol y creando icono en el Escritorio..."
         s6 = "6/6 $BULLET Verificacion final completada con exito!"
+        lblElapsed = "transcurridos"
+        lblLeft = "restantes"
+        lblAlmost = "casi listo..."
     }
 }
 
@@ -177,11 +186,21 @@ $BtnAction = $Window.FindName("BtnAction")
 
 $State = [hashtable]::Synchronized(@{ Lang = "it"; Installed = $false; Running = $false })
 
+function Pump-UI {
+    try {
+        [System.Windows.Threading.Dispatcher]::CurrentDispatcher.Invoke(
+            [Action]{},
+            [System.Windows.Threading.DispatcherPriority]::Background
+        )
+    } catch {}
+    [System.Windows.Forms.Application]::DoEvents()
+}
+
 function Log-Console([string]$msg) {
     if (-not $msg) { return }
     $TxtConsole.AppendText("`r`n$msg")
     $TxtConsole.ScrollToEnd()
-    [System.Windows.Forms.Application]::DoEvents()
+    Pump-UI
 }
 
 function Select-Lang($lang) {
@@ -209,35 +228,69 @@ function Update-UI($pct, $stepText, $detailText) {
     $TxtPct.Text = "$pct%"
     if ($stepText) { $TxtStep.Text = $stepText }
     if ($detailText) { $TxtDetail.Text = $detailText }
-    [System.Windows.Forms.Application]::DoEvents()
+    Pump-UI
 }
 
-function Run-CliLogged($cmd, $args, $label) {
-    Log-Console "[$label] Esecuzione: $cmd $args"
-    $pinfo = New-Object System.Diagnostics.ProcessStartInfo
-    $pinfo.FileName = $cmd
-    $pinfo.Arguments = $args
-    $pinfo.UseShellExecute = $false
-    $pinfo.RedirectStandardOutput = $true
-    $pinfo.RedirectStandardError = $true
-    $pinfo.CreateNoWindow = $true
-    $p = [System.Diagnostics.Process]::Start($pinfo)
-    while (-not $p.HasExited) {
-        Start-Sleep -Milliseconds 80
-        [System.Windows.Forms.Application]::DoEvents()
+function Format-Eta([int]$sec) {
+    if ($sec -lt 0) { $sec = 0 }
+    if ($sec -lt 60) { return "${sec}s" }
+    $m = [math]::Floor($sec / 60)
+    $s = $sec % 60
+    return "${m}m ${s}s"
+}
+
+function Run-CliLogged($cmd, $argList, $label, $startPct = -1, $endPct = -1, $estSec = 30) {
+    Log-Console "[$label] Esecuzione: $cmd $argList"
+    $outFile = Join-Path $env:TEMP ("bt_out_" + [guid]::NewGuid().ToString("N") + ".log")
+    $errFile = Join-Path $env:TEMP ("bt_err_" + [guid]::NewGuid().ToString("N") + ".log")
+    $t = $I18N[$State.Lang]
+    $sw = [System.Diagnostics.Stopwatch]::StartNew()
+    $lastTick = [DateTime]::MinValue
+    try {
+        $p = Start-Process -FilePath $cmd -ArgumentList $argList -NoNewWindow -PassThru `
+            -RedirectStandardOutput $outFile -RedirectStandardError $errFile
+        while (-not $p.HasExited) {
+            Start-Sleep -Milliseconds 40
+            if (([DateTime]::Now - $lastTick).TotalMilliseconds -gt 300) {
+                $el = [int]$sw.Elapsed.TotalSeconds
+                $rem = [math]::Max(0, $estSec - $el)
+                $etaTxt = if ($rem -gt 0) { "~$(Format-Eta $rem) $($t.lblLeft)" } else { $t.lblAlmost }
+                if ($startPct -ge 0 -and $endPct -gt $startPct) {
+                    $ratio = if ($estSec -gt 0) { [math]::Min(0.95, $sw.Elapsed.TotalSeconds / $estSec) } else { 0.5 }
+                    $curPct = [int][math]::Round($startPct + ($endPct - $startPct) * $ratio)
+                    $ProgBar.Value = $curPct
+                    $TxtPct.Text = "$curPct%"
+                }
+                $TxtDetail.Text = "[$label] $(Format-Eta $el) $($t.lblElapsed) $BULLET $etaTxt"
+                $lastTick = [DateTime]::Now
+            }
+            Pump-UI
+        }
+        $p.WaitForExit()
+        if ($endPct -gt 0) {
+            $ProgBar.Value = $endPct
+            $TxtPct.Text = "$endPct%"
+        }
+        if (Test-Path $outFile) {
+            $out = (Get-Content $outFile -Raw -ErrorAction SilentlyContinue)
+            if ($out -and $out.Trim()) { Log-Console $out.Trim() }
+        }
+        if (Test-Path $errFile) {
+            $err = (Get-Content $errFile -Raw -ErrorAction SilentlyContinue)
+            if ($err -and $err.Trim()) { Log-Console $err.Trim() }
+        }
+    } finally {
+        Remove-Item $outFile, $errFile -Force -ErrorAction SilentlyContinue
     }
-    $p.WaitForExit()
-    $out = $p.StandardOutput.ReadToEnd()
-    $err = $p.StandardError.ReadToEnd()
-    if ($out) { Log-Console $out.Trim() }
-    if ($err) { Log-Console $err.Trim() }
 }
 
-function Fetch-WithCurl($fileName, $destFile) {
+function Fetch-WithCurl($fileName, $destFile, $startPct = -1, $endPct = -1, $expectedMB = 50) {
     $localCandidate = Join-Path $LocalDistDir $fileName
     if (Test-Path $localCandidate) {
         Log-Console "[Locale] Pacchetto trovato: $fileName"
         Copy-Item -Path $localCandidate -Destination $destFile -Force
+        if ($endPct -gt 0) { $ProgBar.Value = $endPct; $TxtPct.Text = "$endPct%" }
+        Pump-UI
         if (Test-Path $destFile) { 
             Log-Console "[OK] Copia completata: $fileName"
             return $true 
@@ -245,34 +298,39 @@ function Fetch-WithCurl($fileName, $destFile) {
     }
     $remoteUrl = "$GithubBaseUrl/$fileName"
     Log-Console "[CURL] Download: $remoteUrl"
-    
-    $pinfo = New-Object System.Diagnostics.ProcessStartInfo
-    $pinfo.FileName = "curl.exe"
-    $pinfo.Arguments = "-fSL --progress-bar `"$remoteUrl`" -o `"$destFile`""
-    $pinfo.UseShellExecute = $false
-    $pinfo.RedirectStandardError = $true
-    $pinfo.CreateNoWindow = $true
-    $p = [System.Diagnostics.Process]::Start($pinfo)
-    
-    $stderrReader = $p.StandardError
-    $lastUpdate = [DateTime]::MinValue
-    while (-not $p.HasExited) {
-        $line = $stderrReader.ReadLine()
-        if ($line) {
-            $lineClean = $line.Trim()
-            if ($lineClean -and ([DateTime]::Now - $lastUpdate).TotalMilliseconds -gt 250) {
-                $TxtConsole.AppendText("`r`n$fileName : $lineClean")
-                $TxtConsole.ScrollToEnd()
-                $TxtDetail.Text = "$fileName : $lineClean"
-                [System.Windows.Forms.Application]::DoEvents()
+    $errFile = Join-Path $env:TEMP ("bt_curl_" + [guid]::NewGuid().ToString("N") + ".log")
+    $t = $I18N[$State.Lang]
+    $sw = [System.Diagnostics.Stopwatch]::StartNew()
+    try {
+        $p = Start-Process -FilePath "curl.exe" -ArgumentList "-fSL `"$remoteUrl`" -o `"$destFile`"" `
+            -NoNewWindow -PassThru -RedirectStandardError $errFile
+        $lastUpdate = [DateTime]::MinValue
+        while (-not $p.HasExited) {
+            Start-Sleep -Milliseconds 50
+            if (([DateTime]::Now - $lastUpdate).TotalMilliseconds -gt 300) {
+                if (Test-Path $destFile) {
+                    $mb = [math]::Round((Get-Item $destFile).Length / 1MB, 1)
+                    $sec = [math]::Max(0.5, $sw.Elapsed.TotalSeconds)
+                    $spd = [math]::Round($mb / $sec, 1)
+                    $remSec = if ($spd -gt 0.1 -and $expectedMB -gt $mb) { [int](($expectedMB - $mb) / $spd) } else { 0 }
+                    $etaTxt = if ($remSec -gt 0) { "~$(Format-Eta $remSec) $($t.lblLeft)" } else { $t.lblAlmost }
+                    if ($startPct -ge 0 -and $endPct -gt $startPct -and $expectedMB -gt 0) {
+                        $ratio = [math]::Min(0.95, $mb / $expectedMB)
+                        $curPct = [int][math]::Round($startPct + ($endPct - $startPct) * $ratio)
+                        $ProgBar.Value = $curPct
+                        $TxtPct.Text = "$curPct%"
+                    }
+                    $TxtDetail.Text = "$fileName $BULLET ${mb} MB (${spd} MB/s) $BULLET $etaTxt"
+                }
                 $lastUpdate = [DateTime]::Now
             }
-        } else {
-            Start-Sleep -Milliseconds 50
+            Pump-UI
         }
-        [System.Windows.Forms.Application]::DoEvents()
+        $p.WaitForExit()
+        if ($endPct -gt 0) { $ProgBar.Value = $endPct; $TxtPct.Text = "$endPct%" }
+    } finally {
+        Remove-Item $errFile -Force -ErrorAction SilentlyContinue
     }
-    $p.WaitForExit()
     Log-Console "[OK] Download completato: $fileName"
     return (Test-Path $destFile)
 }
@@ -300,49 +358,49 @@ $BtnAction.Add_Click({
         $TmpDir = Join-Path $env:TEMP "BibleTime_Setup_Tmp"
         New-Item -ItemType Directory -Force -Path $TmpDir | Out-Null
 
-        # STEP 1: Python Standalone
-        Update-UI 10 $t.s1 "curl -> python_standalone_win_x64.tar.gz"
+        # STEP 1: Python Standalone (5% -> 25%)
+        Update-UI 5 $t.s1 "Download Python 3.12 (~30s)..."
         $pyTar = Join-Path $TmpDir "python_standalone_win_x64.tar.gz"
         $pyDir = Join-Path $InstallDir "python_standalone"
         if (-not (Test-Path (Join-Path $pyDir "python.exe"))) {
-            if (Fetch-WithCurl "python_standalone_win_x64.tar.gz" $pyTar) {
+            if (Fetch-WithCurl "python_standalone_win_x64.tar.gz" $pyTar 5 18 45) {
                 New-Item -ItemType Directory -Force -Path $pyDir | Out-Null
-                Run-CliLogged "tar.exe" "-xzf `"$pyTar`" -C `"$pyDir`" --strip-components=1" "TAR"
+                Run-CliLogged "tar.exe" "-xzf `"$pyTar`" -C `"$pyDir`" --strip-components=1" "TAR" 18 25 20
             }
         }
         $L1.Text = "- [$CHECK] Runtime Python 3.12 Portatile pronto"; $L1.Foreground = "#10B981"
 
-        # STEP 2: BibleTime_AI_Suite.zip
-        Update-UI 35 $t.s2 "curl -> BibleTime_AI_Suite.zip"
+        # STEP 2: BibleTime_AI_Suite.zip (25% -> 58%)
+        Update-UI 25 $t.s2 "Download BibleTime_AI_Suite.zip (~1-3m)..."
         $suiteZip = Join-Path $TmpDir "BibleTime_AI_Suite.zip"
-        if (-not (Fetch-WithCurl "BibleTime_AI_Suite.zip" $suiteZip)) {
+        if (-not (Fetch-WithCurl "BibleTime_AI_Suite.zip" $suiteZip 25 58 650)) {
             throw "Impossibile scaricare BibleTime_AI_Suite.zip da GitHub."
         }
         $L2.Text = "- [$CHECK] BibleTime_AI_Suite.zip scaricato e verificato"; $L2.Foreground = "#10B981"
 
-        # STEP 3: Extract zip
-        Update-UI 60 $t.s3 "Estrazione archivio in $InstallDir ..."
-        Run-CliLogged "tar.exe" "-xf `"$suiteZip`" -C `"$InstallDir`"" "TAR"
-        Update-UI 75 $t.s4 "Creazione .venv_win e installazione dipendenze..."
+        # STEP 3: Extract zip (58% -> 72%)
+        Update-UI 58 $t.s3 "Estrazione archivio in $InstallDir (~35s)..."
+        Run-CliLogged "tar.exe" "-xf `"$suiteZip`" -C `"$InstallDir`"" "TAR" 58 72 35
+        Update-UI 72 $t.s4 "Creazione .venv_win e installazione dipendenze (~1-2m)..."
 
-        # STEP 4: Create .venv_win
+        # STEP 4: Create .venv_win (72% -> 93%)
         $pyExe = Join-Path $pyDir "python.exe"
         if (-not (Test-Path $pyExe)) { $pyExe = "python" }
         $venvDir = Join-Path $InstallDir ".venv_win"
         if (-not (Test-Path (Join-Path $venvDir "Scripts\python.exe"))) {
-            Run-CliLogged "$pyExe" "-m venv `"$venvDir`"" "VENV"
+            Run-CliLogged "$pyExe" "-m venv `"$venvDir`"" "VENV" 72 78 20
         }
         $venvPy = Join-Path $venvDir "Scripts\python.exe"
         if (Test-Path $venvPy) {
             $reqFile = Join-Path $InstallDir "requirements.txt"
-            Run-CliLogged "$venvPy" "-m pip install --upgrade pip --quiet" "PIP"
-            Run-CliLogged "$venvPy" "-m pip install -r `"$reqFile`" --quiet" "PIP"
+            Run-CliLogged "$venvPy" "-m pip install --upgrade pip --quiet" "PIP" 78 82 20
+            Run-CliLogged "$venvPy" "-m pip install -r `"$reqFile`" --quiet" "PIP" 82 93 90
             Set-Content -Path (Join-Path $venvDir ".deps_ok") -Value "ok" -Encoding ASCII
         }
         $L3.Text = "- [$CHECK] Ambiente .venv_win e librerie configurate"; $L3.Foreground = "#10B981"
 
-        # STEP 5: Pre-configure chosen Language & Desktop Shortcut
-        Update-UI 92 $t.s5 "Impostazione lingua '$($State.Lang)' e icona Desktop..."
+        # STEP 5: Pre-configure chosen Language & Desktop Shortcut (93% -> 99%)
+        Update-UI 93 $t.s5 "Impostazione lingua '$($State.Lang)' e icona Desktop (~5s)..."
         $lang = $State.Lang
         foreach ($cfgName in @("config.default.json", "config.json")) {
             $cfgPath = Join-Path $InstallDir "server\router\$cfgName"
