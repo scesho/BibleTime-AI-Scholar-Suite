@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manuale Utente Ufficiale — BibleTime AI Scholar Suite</title>
+  <link rel="icon" type="image/png" href="assets/icons/app.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .manual-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      min-height: 80vh;
+    }
+
+    .manual-sidebar {
+      position: sticky;
+      top: 5rem;
+      height: fit-content;
+      padding: 1.25rem;
+    }
+
+    .chapter-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .chapter-link {
+      display: block;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.6rem 0.85rem;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .chapter-link:hover,
+    .chapter-link.active {
+      background: rgba(34, 211, 238, 0.15);
+      color: var(--cyan);
+      border-left: 3px solid var(--cyan);
+    }
+
+    .manual-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .chapter-card {
+      padding: 2rem;
+    }
+
+    .chapter-card h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+
+    .chapter-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--cyan);
+      margin: 1.25rem 0 0.5rem;
+    }
+
+    .chapter-card p,
+    .chapter-card li {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    .chapter-card ul {
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .screenshot-box {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      border: 1px dashed rgba(34, 211, 238, 0.4);
+      border-radius: 0.75rem;
+      background: rgba(3, 6, 13, 0.6);
+      text-align: center;
+    }
+
+    .badge-hub {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.35rem;
+      background: rgba(34, 211, 238, 0.15);
+      color: var(--cyan);
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-right: 0.5rem;
+    }
+
+    body[data-lang="it"] .lang-en,
+    body[data-lang="it"] .lang-es,
+    body:not([data-lang]) .lang-en,
+    body:not([data-lang]) .lang-es {
+      display: none !important;
+    }
+
+    body[data-lang="en"] .lang-it,
+    body[data-lang="en"] .lang-es {
+      display: none !important;
+    }
+
+    body[data-lang="es"] .lang-it,
+    body[data-lang="es"] .lang-en {
+      display: none !important;
+    }
+
+    @media (max-width: 900px) {
+      .manual-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .manual-sidebar {
+        position: relative;
+        top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body data-lang="it">
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="brand">
+        <img src="assets/icons/app.png" alt="BibleTime AI Suite Logo">
+        <div class="brand-text">
+          <h1>BibleTime AI</h1>
+          <span data-i18n="manual_brand_subtitle">Manuale d'Uso (?)</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="manual_back_home">← Torna alla Home</a></li>
+        <li><a href="index.html#download" data-i18n="nav_download">Download</a></li>
+        <li><a href="index.html#pricing" data-i18n="manual_pricing_btn">Prezzo Offerta (€199)</a></li>
+      </ul>
+
+      <!-- Language Selector -->
+      <div class="lang-selector">
+        <button class="lang-btn active" data-lang="it">IT 🇮🇹</button>
+        <button class="lang-btn" data-lang="en">EN 🇬🇧</button>
+        <button class="lang-btn" data-lang="es">ES 🇪🇸</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container manual-layout">
+    <!-- Chapter Sidebar -->
+    <aside class="manual-sidebar glass-panel">
+      <!-- IT -->
+      <div class="lang-it">
+        <h4
+          style="font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; color: var(--cyan);">
+          Indice Capitoli
+        </h4>
+        <ul class="chapter-nav">
+          <li><a href="#cap1" class="chapter-link active">1. Benvenuto, Requisiti & Licenza</a></li>
+          <li><a href="#cap2" class="chapter-link">2. Barra Superiore & Comandi</a></li>
+          <li><a href="#cap3" class="chapter-link">3. Canone Biblico (66 Libri)</a></li>
+          <li><a href="#cap4" class="chapter-link">4. Biblioteca SWORD & Workspace</a></li>
+          <li><a href="#cap5" class="chapter-link">5. Lingue Originali & Filologia</a></li>
+          <li><a href="#cap6" class="chapter-link">6. Scriptorium AI & Esegesi</a></li>
+          <li><a href="#cap7" class="chapter-link">7. RAG Patristico & Taccuino</a></li>
+          <li><a href="#cap8" class="chapter-link">8. Predicazione & Pulpito 16:9</a></li>
+          <li><a href="#cap9" class="chapter-link">9. Atlante Sacro, Mappe & Personaggi</a></li>
+          <li><a href="#cap10" class="chapter-link">10. Router AI & Guida Chiavi</a></li>
+        </ul>
+      </div>
+
+      <!-- EN -->
+      <div class="lang-en">
+        <h4
+          style="font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; color: var(--cyan);">
+          Chapter Index
+        </h4>
+        <ul class="chapter-nav">
+          <li><a href="#cap1" class="chapter-link active">1. Welcome, Requirements & License</a></li>
+          <li><a href="#cap2" class="chapter-link">2. Top Command Bar & HUD</a></li>
+          <li><a href="#cap3" class="chapter-link">3. Biblical Canon (66 Books)</a></li>
+          <li><a href="#cap4" class="chapter-link">4. SWORD Library & Workspace</a></li>
+          <li><a href="#cap5" class="chapter-link">5. Original Languages & Philology</a></li>
+          <li><a href="#cap6" class="chapter-link">6. Scriptorium AI & Exegesis</a></li>
+          <li><a href="#cap7" class="chapter-link">7. Patristic RAG & Notebook</a></li>
+          <li><a href="#cap8" class="chapter-link">8. Preaching & 16:9 Pulpit</a></li>
+          <li><a href="#cap9" class="chapter-link">9. Sacred Atlas, Maps & Characters</a></li>
+          <li><a href="#cap10" class="chapter-link">10. AI Router & Keys Guide</a></li>
+        </ul>
+      </div>
+
+      <!-- ES -->
+      <div class="lang-es">
+        <h4
+          style="font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; color: var(--cyan);">
+          Índice de Capítulos
+        </h4>
+        <ul class="chapter-nav">
+          <li><a href="#cap1" class="chapter-link active">1. Bienvenida, Requisitos & Licencia</a></li>
+          <li><a href="#cap2" class="chapter-link">2. Barra Superior de Mandos</a></li>
+          <li><a href="#cap3" class="chapter-link">3. Canon Bíblico (66 Libros)</a></li>
+          <li><a href="#cap4" class="chapter-link">4. Biblioteca SWORD & Espacio Multi-Panel</a></li>
+          <li><a href="#cap5" class="chapter-link">5. Lenguas Originales & Filología</a></li>
+          <li><a href="#cap6" class="chapter-link">6. Scriptorium IA & Exégesis</a></li>
+          <li><a href="#cap7" class="chapter-link">7. RAG Patrístico & Cuaderno</a></li>
+          <li><a href="#cap8" class="chapter-link">8. Predicación & Púlpito 16:9</a></li>
+          <li><a href="#cap9" class="chapter-link">9. Atlas Sagrado, Mapas & Personajes</a></li>
+          <li><a href="#cap10" class="chapter-link">10. Router IA & Guía de Claves</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Manual Content Area -->
+    <main class="manual-content">\n\n      <!-- Cap 1 -->
+      <section id="cap1" class="chapter-card glass-panel">
+        <!-- IT -->
+        <div class="lang-it">
+          <h3>1. Benvenuto, Requisiti di Sistema, Trial 30gg & Attivazione Licenza</h3>
+          <p>
+            Benvenuto nel <strong>Manuale Utente Ufficiale di BibleTime AI Scholar Suite</strong>, la suite esegetica e teologica più avanzata al mondo, concepita per docenti, pastori, accademici, ricercatori e studiosi della Parola di Dio.
+          </p>
+
+          <h4>1.1 Visione Accademica & Autonomia Totale (100% Offline)</h4>
+          <p>
+            A differenza dei comuni software commerciali che impongono costosi abbonamenti mensili e archiviano i tuoi studi su server remoti, BibleTime AI Scholar Suite è un <strong>microcosmo autosufficiente al 100% on-premise</strong>:
+          </p>
+          <ul>
+            <li><strong>519 Moduli SWORD Storici Inclusi</strong>: Bibbie in lingua originale (WLC ebraica con cantillazioni, Textus Receptus, Tischendorf, LXX), traduzioni storiche (LND, Diodati 1607, KJV, Reina-Valera, Vulgate), commentari patristici e lessici Strong completi già residenti sul tuo computer.</li>
+            <li><strong>Massima Riservatezza Ministeriale</strong>: i tuoi sermoni, appunti omiletici, note pastorali e ricerche esegetiche non lasciano mai la tua macchina e rimangono custoditi nei database SQLite locali crittografati.</li>
+            <li><strong>Distribuzione & Fatturazione Ufficiale</strong>: la suite è distribuita e fatturata regolarmente con Partita IVA da <strong>Alfa Omega S.r.l.</strong></li>
+          </ul>
+
+          <h4>1.2 Requisiti Minimi e Consigliati di Sistema</h4>
+          <ul>
+            <li><strong>Windows</strong>: Windows 10 o Windows 11 (a 64-bit). Minimo 4 GB di RAM (consigliati 8 GB o superiori), 4 GB di spazio libero su disco (SSD consigliato per avvio istantaneo a zero latenza). Non richiede installazioni esterne di Python o librerie di terze parti: include un motore standalone autonomo.</li>
+            <li><strong>macOS</strong>: macOS 12 Monterey, macOS 13 Ventura, macOS 14 Sonoma o successivi. Supporto nativo sia per architettura Apple Silicon (chip M1, M2, M3, M4) che per processori Intel a 64-bit. <em>Nota Apple Gatekeeper (primo avvio)</em>: fai Tasto Destro ➔ "Apri" ➔ "Apri comunque", oppure vai in Impostazioni di Sistema ➔ Privacy e sicurezza ➔ "Apri comunque".</li>
+            <li><strong>Linux</strong>: Linux Mint 21+, Ubuntu 22.04 LTS+, Debian 12+, Fedora, Arch Linux o derivate con glibc moderna.</li>
+          </ul>
+
+          <h4>1.3 Primo Avvio & Periodo di Prova Gratuita (Trial 30 Giorni)</h4>
+          <p>
+            Al primo avvio, l'applicazione si attiva automaticamente in <strong>Modalità Prova Ufficiale di 30 Giorni</strong>:
+          </p>
+          <ul>
+            <li><strong>7 Studi Completi al Giorno</strong>: puoi generare ogni giorno fino a 7 dossier esegetici approfonditi a 360°, ricerche Scriptorium AI e concilî socratici <strong>senza filigrana o troncamenti</strong>.</li>
+            <li><strong>Nessuna Carta di Credito</strong>: la prova è gratuita al 100% e non richiede alcun dato di pagamento per iniziare a studiare.</li>
+            <li><strong>Accesso Totale a Tutti i Moduli</strong>: esplora liberamente l'Atlante WGS84, l'interlineare inverso, l'apparato critico dei manoscritti e la visualizzazione chiasmi ad arco.</li>
+          </ul>
+
+          <h4>1.4 Procedura di Attivazione della Licenza Perpetua a Vita</h4>
+          <p>
+            Per rimuovere per sempre qualsiasi limite giornaliero e sbloccare le generazioni batch illimitate:
+          </p>
+          <ol style="margin-left: 1.5rem; color: #cbd5e1; font-size: 0.92rem; line-height: 1.8;">
+            <li>Clicca sull'icona con il lucchetto dorato <strong>🛡️ Licenza</strong> situata in alto a destra nella testata (Header Bar).</li>
+            <li>Nella finestra modale comparirà il tuo <strong>Hardware ID univoco</strong> (es. <code>BT-HW-8F4A-92C1-E70B</code>), calcolato crittograficamente sulla scheda madre e sul processore della macchina.</li>
+            <li>Copia il codice con l'apposito pulsante e invialo via email a <strong><a href="mailto:bibletimeaisuite@gmail.com" style="color: var(--cyan);">bibletimeaisuite@gmail.com</a></strong> per la richiesta licenza (€199 + IVA in offerta lancio).</li>
+            <li>Riceverai via email il tuo <strong>Certificato Notarile Diplomatico PDF</strong> e il file di licenza asimmetrico <code>.btlic</code> firmato con algoritmo crittografico Ed25519.</li>
+            <li>Clicca su <strong>"Carica file di licenza (.btlic)"</strong> oppure incolla il codice seriale nel campo di testo: la suite si sbloccherà istantaneamente a vita mostrando il badge verde <strong>"Licenza Perpetua Attiva"</strong>.</li>
+          </ol>
+
+          <h4>1.5 Politica Multi-Dispositivo (Fino a 2 PC per Licenza)</h4>
+          <p>
+            Ogni singola licenza commerciale BibleTime AI Scholar Suite consente l'attivazione autorizzata su <strong>fino a 2 computer personali dello stesso utente</strong> (ad esempio: il PC Fisso dello studio biblico e il Portatile per predicazioni, missioni o docenze universitarie). È sufficiente inviare al supporto il secondo Hardware ID per ricevere l'estensione del certificato.
+          </p>
+
+          <h4>1.6 Assistenza & Supporto Commerciale</h4>
+          <p>
+            Per qualsiasi domanda sull'attivazione, fatturazione elettronica con Codice Univoco/SDI o preventivi per chiese e seminari, scrivi direttamente a: <strong><a href="mailto:bibletimeaisuite@gmail.com" style="color: var(--cyan); font-weight: 700;">bibletimeaisuite@gmail.com</a></strong> (risposte garantite entro 24 ore lavorative).
+          </p>
+        </div>
+
+        <!-- EN -->
+        <div class="lang-en">
+          <h3>1. Welcome, System Requirements, 30-Day Trial & License Activation</h3>
+          <p>
+            Welcome to the <strong>Official User Manual of BibleTime AI Scholar Suite</strong>, the world's premier exegetical and theological desktop platform, designed for professors, pastors, academics, researchers, and serious students of Sacred Scripture.
+          </p>
+
+          <h4>1.1 Scholarly Vision & Complete Autonomy (100% Offline)</h4>
+          <p>
+            Unlike closed commercial cloud platforms that demand costly monthly subscriptions and store your research on remote third-party servers, BibleTime AI Scholar Suite is a <strong>self-contained, 100% on-premise local workstation</strong>:
+          </p>
+          <ul>
+            <li><strong>519 Historical SWORD Modules Included</strong>: Original Hebrew texts (WLC with cantillations), Greek New Testaments (Textus Receptus, Tischendorf, LXX), historical translations (KJV, ASV, Vulgate, SpaRV, LND), patristic commentaries, and complete Strong's lexicons stored locally on your SSD.</li>
+            <li><strong>Uncompromising Ministerial Privacy</strong>: your sermons, personal exegesis, homiletical notes, and pastoral consultations never leave your hardware and remain secured in local SQLite databases.</li>
+            <li><strong>Official Enterprise Invoicing</strong>: distributed and commercially invoiced with VAT by <strong>Alfa Omega S.r.l.</strong></li>
+          </ul>
+
+          <h4>1.2 Minimum & Recommended System Requirements</h4>
+          <ul>
+            <li><strong>Windows</strong>: Windows 10 or Windows 11 (64-bit). Minimum 4 GB RAM (8 GB or higher recommended), 4 GB available disk space (SSD recommended for instant zero-latency lookups). Requires zero external runtime or Python installs: fully self-contained.</li>
+            <li><strong>macOS</strong>: macOS 12 Monterey, macOS 13 Ventura, macOS 14 Sonoma or higher. Native support for both Apple Silicon (M1, M2, M3, M4 chips) and Intel 64-bit processors. <em>Apple Gatekeeper First-Launch Note</em>: Right-Click ➔ "Open" ➔ "Open Anyway", or go to System Settings ➔ Privacy & Security ➔ "Open Anyway".</li>
+            <li><strong>Linux</strong>: Linux Mint 21+, Ubuntu 22.04 LTS+, Debian 12+, Fedora, Arch Linux or compatible distributions with modern glibc.</li>
+          </ul>
+
+          <h4>1.3 Initial Launch & 30-Day Evaluation Period (Free Trial)</h4>
+          <p>
+            Upon initial startup, BibleTime automatically activates in <strong>Official 30-Day Evaluation Trial Mode</strong>:
+          </p>
+          <ul>
+            <li><strong>7 Full In-Depth Studies Daily</strong>: generate up to 7 full 360° exegetical dossiers, Scriptorium research treatises, and Socratic debates every day <strong>with zero watermarks or truncations</strong>.</li>
+            <li><strong>No Credit Card Required</strong>: the trial is 100% free with no payment method needed to start your research immediately.</li>
+            <li><strong>Full Access to All Analytical Hubs</strong>: freely explore the WGS84 Sacred Atlas, 5-level Reverse Interlinear, manuscript textual criticism, and concentric arc chiasms.</li>
+          </ul>
+
+          <h4>1.4 Step-by-Step Lifetime License Activation Procedure</h4>
+          <p>
+            To permanently lift all daily study caps and unlock unlimited batch generations:
+          </p>
+          <ol style="margin-left: 1.5rem; color: #cbd5e1; font-size: 0.92rem; line-height: 1.8;">
+            <li>Click the golden lock button <strong>🛡️ License</strong> located on the top right of the Header Bar.</li>
+            <li>The modal window will display your <strong>unique Hardware ID</strong> (e.g., <code>BT-HW-8F4A-92C1-E70B</code>), calculated cryptographically from your motherboard and processor identity.</li>
+            <li>Copy the code using the one-click copy button and email it to <strong><a href="mailto:bibletimeaisuite@gmail.com" style="color: var(--cyan);">bibletimeaisuite@gmail.com</a></strong> to order your commercial license ($219 USD promo).</li>
+            <li>You will receive your official <strong>Diplomatic PDF Notarial Certificate</strong> and your cryptographic asymmetric <code>.btlic</code> license file signed with Ed25519 algorithms.</li>
+            <li>Click <strong>"Load license file (.btlic)"</strong> or paste the serial code into the text field: the suite will unlock instantly for life, displaying the emerald badge <strong>"Lifetime Perpetual License Active"</strong>.</li>
+          </ol>
+
+          <h4>1.5 Multi-Device Policy (Authorized on up to 2 PCs)</h4>
+          <p>
+            Each commercial BibleTime AI Scholar Suite license grants authorized activation on <strong>up to 2 computers owned by the same user</strong> (e.g., your Primary Study Desktop PC + Laptop for preaching, mission trips, or university lectures). Simply email your second Hardware ID to support to receive your dual-device certificate.
+          </p>
+
+          <h4>1.6 Direct Commercial Support</h4>
+          <p>
+            For inquiries regarding activation, corporate invoices, or volume licensing for seminaries and churches, write to: <strong><a href="mailto:bibletimeaisuite@gmail.com" style="color: var(--cyan); font-weight: 700;">bibletimeaisuite@gmail.com</a></strong> (fast turnaround within 24 business hours).
+          </p>
+        </div>
+
+        <!-- ES -->
+        <div class="lang-es">
+          <h3>1. Bienvenida, Requisitos del Sistema, Trial de 30 Días & Activación de Licencia</h3>
+          <p>
+            Bienvenido al <strong>Manual de Usuario Oficial de BibleTime AI Scholar Suite</strong>, la plataforma teológica y exegética de escritorio más avanzada del mundo, concebida para profesores, pastores, académicos, investigadores y estudiantes apasionados de la Palabra de Dios.
+          </p>
+
+          <h4>1.1 Visión Académica & Autonomía Absoluta (100% Offline)</h4>
+          <p>
+            A diferencia de los programas comerciales cerrados en la nube que imponen costosas suscripciones mensuales y alojan tus notas en servidores remotos, BibleTime AI Scholar Suite es una <strong>estación de trabajo local autosuficiente al 100% on-premise</strong>:
+          </p>
+          <ul>
+            <li><strong>519 Módulos SWORD Históricos Incluidos</strong>: Textos originales hebreos (WLC con cantilaciones), textos griegos (Textus Receptus, Tischendorf, Septuaginta LXX), versiones históricas (Reina-Valera 1909, KJV, Vulgata, LND), comentarios patrísticos y léxicos Strong completos residentes en tu disco.</li>
+            <li><strong>Privacidad Ministerial Inviolable</strong>: tus sermones, bosquejos homiléticos, notas pastorales y estudios exegéticos jamás salen de tu equipo y quedan protegidos en bases de datos locales SQLite.</li>
+            <li><strong>Facturación Oficial de Empresa</strong>: distribuido y facturado fiscalmente con IVA por <strong>Alfa Omega S.r.l.</strong></li>
+          </ul>
+
+          <h4>1.2 Requisitos Mínimos y Recomendados del Sistema</h4>
+          <ul>
+            <li><strong>Windows</strong>: Windows 10 o Windows 11 (64 bits). Mínimo 4 GB de RAM (recomendado 8 GB o superior), 4 GB de espacio libre en disco (SSD recomendado para búsquedas instantáneas a latencia cero). No requiere instalaciones externas de Python ni paquetes de terceros: viene 100% autónomo.</li>
+            <li><strong>macOS</strong>: macOS 12 Monterey, macOS 13 Ventura, macOS 14 Sonoma o superior. Compatibilidad nativa con Apple Silicon (chips M1, M2, M3, M4) y procesadores Intel de 64 bits. <em>Nota de Apple Gatekeeper (primer inicio)</em>: Haz Clic Derecho ➔ "Abrir" ➔ "Abrir de todos modos", o ve a Ajustes del Sistema ➔ Privacidad y seguridad ➔ "Abrir de todos modos".</li>
+            <li><strong>Linux</strong>: Linux Mint 21+, Ubuntu 22.04 LTS+, Debian 12+, Fedora, Arch Linux o distribuciones derivadas con glibc moderna.</li>
+          </ul>
+
+          <h4>1.3 Primer Inicio & Período de Evaluación Gratuito (Trial de 30 Días)</h4>
+          <p>
+            Al iniciar por primera vez, el software se activa de inmediato en <strong>Modo de Evaluación Oficial de 30 Días</strong>:
+          </p>
+          <ul>
+            <li><strong>7 Estudios Completos al Día</strong>: genera diariamente hasta 7 dosieres exegéticos profundos 360°, tratados de Scriptorium IA y debates del Concilio Socrático <strong>sin marcas de agua ni texto cortado</strong>.</li>
+            <li><strong>Sin Tarjeta de Crédito</strong>: la prueba es 100% gratuita y no solicita datos de pago para comenzar tu investigación de inmediato.</li>
+            <li><strong>Acceso Completo a Todos los Módulos</strong>: explora libremente el Atlas Sagrado WGS84, el interlineal inverso, la crítica textual de manuscritos y los quiasmos concéntricos.</li>
+          </ul>
+
+          <h4>1.4 Procedimiento Paso a Paso para Activar la Licencia Perpetua de por Vida</h4>
+          <p>
+            Para eliminar definitivamente todo límite de estudios diarios y desbloquear generaciones por lotes ilimitadas:
+          </p>
+          <ol style="margin-left: 1.5rem; color: #cbd5e1; font-size: 0.92rem; line-height: 1.8;">
+            <li>Haz clic en el icono con el candado dorado <strong>🛡️ Licencia</strong> situado arriba a la derecha en la barra superior (Header Bar).</li>
+            <li>En la ventana modal verás tu <strong>Hardware ID unívoco</strong> (ej. <code>BT-HW-8F4A-92C1-E70B</code>), calculado criptográficamente a partir de la placa base y procesador de tu máquina.</li>
+            <li>Copia el código con el botón de copia rápida y envíalo por correo a <strong><a href="mailto:bibletimeaisuite@gmail.com" style="color: var(--cyan);">bibletimeaisuite@gmail.com</a></strong> para solicitar tu licencia comercial ($219 USD en oferta lanzamiento).</li>
+            <li>Recibirás por correo tu <strong>Certificado Notarial Diplomático en PDF</strong> y el archivo de licencia asimétrico <code>.btlic</code> firmado con el algoritmo criptográfico Ed25519.</li>
+            <li>Haz clic en <strong>"Cargar archivo de licencia (.btlic)"</strong> o pega la clave de serie en el campo de texto: la suite se desbloqueará de por vida al instante con el distintivo esmeralda <strong>"Licencia Perpetua Activa"</strong>.</li>
+          </ol>
+
+          <h4>1.5 Política Multi-Dispositivo (Autorizado en hasta 2 PCs)</h4>
+          <p>
+            Cada licencia comercial de BibleTime AI Scholar Suite permite la instalación autorizada en <strong>hasta 2 ordenadores personales del mismo titular</strong> (ejemplo: el PC de sobremesa del despacho pastoral y el portátil para conferencias, viajes o docencia). Solo necesitas enviar el segundo Hardware ID a soporte para recibir la extensión del certificado.
+          </p>
+
+          <h4>1.6 Soporte y Atención Comercial Directa</h4>
+          <p>
+            Para cualquier consulta sobre activación, facturas electrónicas o presupuestos para iglesias y seminarios, escribe directamente a: <strong><a href="mailto:bibletimeaisuite@gmail.com" style="color: var(--cyan); font-weight: 700;">bibletimeaisuite@gmail.com</a></strong> (respuestas garantizadas en menos de 24 horas laborales).
+          </p>
+        </div>
+      </section>\n\n      <!-- CAP2 -->
+      <section id="cap2" class="chapter-card glass-panel">
+        <div class="lang-it">
+          <h3>2. Interfaccia Generale & Sala Comandi Superiore (Header Bar)</h3>
+          <p>
+            La <strong>Header Bar</strong> superiore rappresenta il ponte di comando dell'intera suite. Progettata secondo i canoni <em>Dark Luxury</em> (stile Linear/Raycast), offre accesso immediato a tutte le operazioni primarie senza mai costringere l'utente ad abbandonare la lettura del testo sacro.
+          </p>
+
+          <h4>2.1 Cronologia di Navigazione Intelligente (Avanti / Indietro)</h4>
+          <p>
+            I pulsanti a freccia <strong>←</strong> e <strong>→</strong> conservano uno storico dinamico fino a 100 pericopi consultate. Quando salti da una citazione profetica in <em>Isaia 53</em> al suo adempimento in <em>1 Pietro 2</em>, puoi tornare istantaneamente al punto di partenza con un clic o tramite scorciatoia da tastiera (<code>Alt + Freccia Sinistra</code>).
+          </p>
+
+          <h4>2.2 Ricerca Rapida del Passo (Sintassi Naturale Flessibile)</h4>
+          <p>
+            La barra centrale accetta qualsiasi convenzione di citazione biblica nazionale e internazionale:
+          </p>
+          <ul>
+            <li><strong>Nome esteso o abbreviato</strong>: digita <code>Esodo 6:16-20</code>, <code>Es 6</code>, <code>Gv 3:16</code>, <code>Sal 23</code>, <code>Genesi 1</code>.</li>
+            <li><strong>Riconoscimento multilingua automatico</strong>: accetta indistintamente nomi in italiano (<em>"Giovanni"</em>), inglese (<em>"John"</em>), spagnolo (<em>"Juan"</em>) o latino (<em>"Iohannes"</em>), grazie al catalogo canonico <code>book_aliases</code> in SQLite.</li>
+            <li><strong>Salto rapido da tastiera</strong>: premi <code>Ctrl + K</code> o <code>/</code> da qualsiasi punto per attivare istantaneamente il focus sulla casella di ricerca.</li>
+          </ul>
+
+          <h4>2.3 Selettore Versione Biblica Primaria & Canone SWORD</h4>
+          <p>
+            Il menu a tendina centrale permette di cambiare al volo il testo di riferimento su cui operano gli strumenti analitici. La versione predefinita ufficiale italiana è categoricamente <strong>La Nuova Diodati (LND)</strong>, affiancata da:
+          </p>
+          <ul>
+            <li><strong>Traduzioni Storiche Italiane</strong>: Giovanni Diodati 1607/1649, Nuova Riveduta 2006, CEI, Riveduta Luzzi 1927, Mons. Martini 1776.</li>
+            <li><strong>Traduzioni Internazionali Classiche</strong>: King James Version 1769 (KJV), American Standard Version (ASV), Reina-Valera 1909 (SpaRV), Louis Segond (LSG).</li>
+            <li><strong>Testi in Lingua Originale</strong>: Westminster Leningrad Codex (WLC) ebraico con segni masoretici e cantillazioni, Textus Receptus (TR 1550 / Scrivener 1894), Tischendorf 8th Edition, Septuaginta (LXX con deuterocanonici) e Vulgata Clementina Latina.</li>
+          </ul>
+
+          <h4>2.4 Modalità di Visualizzazione del Testo</h4>
+          <p>
+            Accanto al selettore versione, due icone permettono di alternare la visualizzazione dello spazio di lettura:
+          </p>
+          <ul>
+            <li><strong>Lettura Continua & Flusso Editoriale</strong>: impaginazione a libro aperto ad alto contrasto con spaziatura ottimizzata per la meditazione prolungata e l'assenza di affaticamento visivo.</li>
+            <li><strong>Colonne Parallele Sinottiche</strong>: affianca contemporaneamente fino a 3 versioni della Bibbia per il confronto linguistico versetto per versetto.</li>
+          </ul>
+
+          <h4>2.5 Accesso Rapido a Scriptorium AI & Copilot AI (Ctrl+L)</h4>
+          <p>
+            Due pulsanti luxury dominano il quadrante destro della testata:
+          </p>
+          <ul>
+            <li><strong>🪶 Scriptorium AI</strong>: apre la suite di esegesi scientifica a 27 moduli sul capitolo o versetto visualizzato.</li>
+            <li><strong>🤖 Copilot AI (Ctrl+L)</strong>: apre il cassetto laterale dell'assistente conversazionale contestuale con memoria semantica RAG attiva sulla pericope corrente.</li>
+          </ul>
+
+          <h4>2.6 Monitor LED di Stato, Router AI (:10000) & Aiuto (?)</h4>
+          <p>
+            All'estrema destra della barra sono presenti le spie diagnostiche in tempo reale:
+          </p>
+          <ul>
+            <li><strong>Spia Verde Router AI (:10000)</strong>: pulsa in verde smeraldo quando il server uvicorn locale e la memoria SQLite/ChromaDB rispondono a latenza zero (<5ms).</li>
+            <li><strong>Pulsante Licenza 🛡️</strong>: indica lo stato della licenza (Prova 30gg o Licenza a Vita Ed25519) e consente la registrazione seriale.</li>
+            <li><strong>Pulsante Aiuto (?)</strong>: apre istantaneamente questo Manuale Utente Interattivo nel browser predefinito.</li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <h3>2. General Interface & Top Command Deck (Header Bar)</h3>
+          <p>
+            The top <strong>Header Bar</strong> serves as the master command bridge of the entire suite. Designed according to <em>Dark Luxury</em> standards (Linear/Raycast aesthetic), it provides instant access to all primary scholarly workflows without disrupting Scripture reading.
+          </p>
+
+          <h4>2.1 Smart History Navigation (Forward / Back)</h4>
+          <p>
+            The dedicated <strong>←</strong> and <strong>→</strong> navigation buttons maintain an active memory buffer of up to 100 visited passages. When cross-referencing messianic prophecies in <em>Isaiah 53</em> with their fulfillment in <em>1 Peter 2</em>, you can instantly return to your exact reading point with one click or via keyboard shortcut (<code>Alt + Left Arrow</code>).
+          </p>
+
+          <h4>2.2 Quick Passage Search (Natural Language Syntax)</h4>
+          <p>
+            The central input field accepts all standard domestic and international biblical citation formats:
+          </p>
+          <ul>
+            <li><strong>Full or Abbreviated Book Names</strong>: type <code>Exodus 6:16-20</code>, <code>Ex 6</code>, <code>Jn 3:16</code>, <code>Ps 23</code>, <code>Genesis 1</code>.</li>
+            <li><strong>Automatic Multi-Language Recognition</strong>: seamlessly resolves English (<em>"John"</em>), Italian (<em>"Giovanni"</em>), Spanish (<em>"Juan"</em>), or Latin (<em>"Iohannes"</em>), driven by the SQLite <code>book_aliases</code> canonical repository.</li>
+            <li><strong>Keyboard Quick-Focus</strong>: press <code>Ctrl + K</code> or <code>/</code> from anywhere in the application to instantly jump to the search box.</li>
+          </ul>
+
+          <h4>2.3 Primary Bible Version Selector & SWORD Canon</h4>
+          <p>
+            The central dropdown menu toggles the active biblical text referenced by all analytical engines. The default English translation is the <strong>King James Version 1769 (KJV)</strong>, alongside:
+          </p>
+          <ul>
+            <li><strong>Classic International Translations</strong>: American Standard Version (ASV), Reina-Valera 1909 (SpaRV), Nuova Diodati (LND), Geneva Bible 1599, Louis Segond (LSG).</li>
+            <li><strong>Original Language Source Texts</strong>: Westminster Leningrad Codex (WLC) with vowel points and cantillation marks, Textus Receptus (TR 1550 / Scrivener 1894), Tischendorf 8th Edition, Septuagint (LXX), and the Latin Clementine Vulgate.</li>
+          </ul>
+
+          <h4>2.4 Scripture Reading Viewport Modes</h4>
+          <p>
+            Adjacent to the version selector, two layout toggles customize the reading canvas:
+          </p>
+          <ul>
+            <li><strong>Continuous Flow & Editorial Book Mode</strong>: generous high-contrast typography and paragraph spacing engineered for hours of distraction-free reading.</li>
+            <li><strong>Parallel Multi-Column Synoptic View</strong>: compares up to 3 Bible versions simultaneously side-by-side with synchronized verse alignment.</li>
+          </ul>
+
+          <h4>2.5 Quick Access to Scriptorium AI & Copilot AI (Ctrl+L)</h4>
+          <p>
+            Two luxury control pills anchor the right side of the header:
+          </p>
+          <ul>
+            <li><strong>🪶 Scriptorium AI</strong>: launches the 28-module academic exegesis suite on the active chapter or selected passage.</li>
+            <li><strong>🤖 Copilot AI (Ctrl+L)</strong>: opens the contextual AI chat drawer with active RAG semantic grounding on the current passage.</li>
+          </ul>
+
+          <h4>2.6 Telemetry LED Indicators, AI Router (:10000) & Help (?)</h4>
+          <p>
+            Diagnostic status indicators located on the far right:
+          </p>
+          <ul>
+            <li><strong>AI Router Emerald Beacon (:10000)</strong>: illuminates green when the local backend server and SQLite/ChromaDB memory respond with zero latency (<5ms).</li>
+            <li><strong>License Shield Button 🛡️</strong>: displays active evaluation trial status or perpetual Ed25519 license badge and facilitates serial key registration.</li>
+            <li><strong>Help Button (?)</strong>: launches this comprehensive Interactive User Manual in your default browser.</li>
+          </ul>
+        </div>
+        <div class="lang-es">
+          <h3>2. Interfaz General & Barra Superior de Mandos (Header Bar)</h3>
+          <p>
+            La <strong>Header Bar</strong> superior constituye el puente de control central de toda la suite. Concebida bajo la estética <em>Dark Luxury</em> (estilo Linear/Raycast), brinda acceso inmediato a las operaciones exegéticas clave sin apartar la mirada del texto bíblico.
+          </p>
+
+          <h4>2.1 Historial de Navegación Inteligente (Adelante / Atrás)</h4>
+          <p>
+            Las flechas <strong>←</strong> y <strong>→</strong> conservan un búfer dinámico de hasta 100 pasajes visitados. Al saltar de profecías mesiánicas en <em>Isaías 53</em> a su cumplimiento en <em>1 Pedro 2</em>, puedes regresar al instante al punto de partida con un clic o mediante el atajo de teclado (<code>Alt + Flecha Izquierda</code>).
+          </p>
+
+          <h4>2.2 Búsqueda Rápida de Pasajes (Sintaxis Natural Flexible)</h4>
+          <p>
+            La casilla central admite cualquier formato de cita bíblica nacional e internacional:
+          </p>
+          <ul>
+            <li><strong>Nombre completo o abreviado</strong>: escribe <code>Éxodo 6:16-20</code>, <code>Ex 6</code>, <code>Jn 3:16</code>, <code>Sal 23</code>, <code>Génesis 1</code>.</li>
+            <li><strong>Reconocimiento multilingüe automático</strong>: identifica indistintamente nombres en español (<em>"Juan"</em>), inglés (<em>"John"</em>), italiano (<em>"Giovanni"</em>) o latín (<em>"Iohannes"</em>), mediante el repositorio canónico <code>book_aliases</code> en SQLite.</li>
+            <li><strong>Enfoque rápido por teclado</strong>: pulsa <code>Ctrl + K</code> o <code>/</code> en cualquier momento para activar de inmediato el cursor en la casilla de búsqueda.</li>
+          </ul>
+
+          <h4>2.3 Selector de Versión Bíblica Principal & Catálogo SWORD</h4>
+          <p>
+            El menú desplegable central conmuta al vuelo el texto de referencia para todos los motores analíticos. La versión predeterminada oficial en español es la clásica <strong>Reina-Valera 1909 (SpaRV)</strong>, acompañada de:
+          </p>
+          <ul>
+            <li><strong>Traducciones Históricas Internacionales</strong>: King James Version 1769 (KJV), La Nuova Diodati (LND), Biblia de Ginebra 1599, American Standard Version (ASV), Vulgata Latina.</li>
+            <li><strong>Textos Fuente en Lengua Original</strong>: Códice de Leningrado (WLC) hebreo con marcas masoréticas y cantilación, Textus Receptus (TR 1550 / Scrivener 1894), Tischendorf 8ª Edición y Septuaginta griega (LXX).</li>
+          </ul>
+
+          <h4>2.4 Modos de Lectura de las Escrituras</h4>
+          <p>
+            Junto al selector de versiones, dos controles permiten personalizar el lienzo de estudio:
+          </p>
+          <ul>
+            <li><strong>Lectura Continua & Flujo Editorial</strong>: formato de libro abierto de alto contraste y espaciado generoso para lectura prolongada sin fatiga visual.</li>
+            <li><strong>Columnas Paralelas Sinópticas</strong>: coteja hasta 3 versiones bíblicas en paralelo con alineación versículo por versículo.</li>
+          </ul>
+
+          <h4>2.5 Acceso Rápido a Scriptorium IA & Copilot IA (Ctrl+L)</h4>
+          <p>
+            Dos botones luxury presiden el lateral derecho de la cabecera:
+          </p>
+          <ul>
+            <li><strong>🪶 Scriptorium IA</strong>: abre la suite de exégesis científica de 27 módulos sobre el pasaje o capítulo en pantalla.</li>
+            <li><strong>🤖 Copilot IA (Ctrl+L)</strong>: despliega el panel del asistente conversacional contextual con memoria semántica RAG sobre el texto activo.</li>
+          </ul>
+
+          <h4>2.6 Piloto LED del Router IA (:10000) & Botón de Ayuda (?)</h4>
+          <p>
+            Indicadores de telemetría y estado en el extremo derecho:
+          </p>
+          <ul>
+            <li><strong>Piloto Verde Router IA (:10000)</strong>: parpadea en verde esmeralda cuando el servidor local uvicorn y las bases de datos SQLite responden con latencia inferior a 5 ms.</li>
+            <li><strong>Botón de Licencia 🛡️</strong>: indica el estado de la evaluación (Trial de 30 días o Licencia Perpetua Ed25519) y gestiona el registro de la clave de serie.</li>
+            <li><strong>Botón de Ayuda (?)</strong>: abre este Manual de Usuario Interactivo directamente en tu navegador predeterminado.</li>
+          </ul>
+        </div>
+      </section>\n\n      <!-- CAP3 -->
+      <section id="cap3" class="chapter-card glass-panel">
+        <div class="lang-it">
+          <h3>3. Il Canone Biblico a 66 Libri & Navigazione Rapida</h3>
+          <p>
+            La prima icona dell'activity rail laterale sinistro (<strong>📖 Canone Biblico</strong>) apre il cassetto di selezione canonica, progettato per permettere il salto verso qualsiasi pericope con un massimo di due clic.
+          </p>
+
+          <h4>3.1 Struttura Canonica Tradizionale: AT (39 Libri) & NT (27 Libri)</h4>
+          <p>
+            Il selettore suddivide rigorosamente i 66 libri della Scrittura nei due grandi patti della rivelazione:
+          </p>
+          <ul>
+            <li><strong>Antico Testamento (39 Libri)</strong>:
+              <ul>
+                <li><em>Legge / Torah (Pentateuco)</em>: Genesi, Esodo, Levitico, Numeri, Deuteronomio.</li>
+                <li><em>Libri Storici (12 Libri)</em>: da Giosuè ed Ester, con le cronache dei re d'Israele e di Giuda.</li>
+                <li><em>Libri Poetici & Sapienziali (5 Libri)</em>: Giobbe, Salmi, Proverbi, Ecclesiaste, Cantico dei Cantici.</li>
+                <li><em>Profeti Maggiori (5 Libri)</em>: Isaia, Geremia, Lamentazioni, Ezechiele, Daniele.</li>
+                <li><em>Profeti Minori (12 Libri)</em>: da Osea a Malachia.</li>
+              </ul>
+            </li>
+            <li><strong>Nuovo Testamento (27 Libri)</strong>:
+              <ul>
+                <li><em>I Quattro Vangeli Sinottici & Giovanni</em>: Matteo, Marco, Luca, Giovanni.</li>
+                <li><em>Storia Apostolica</em>: Atti degli Apostoli.</li>
+                <li><em>Corpus Paolino (14 Epistole)</em>: da Romani a Ebrei, comprendente lettere dottrinali e pastorali.</li>
+                <li><em>Epistole Generali / Cattoliche (7 Lettere)</em>: Giacomo, 1-2 Pietro, 1-2-3 Giovanni, Giuda.</li>
+                <li><em>Rivelazione Profetica</em>: Apocalisse di Giovanni.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h4>3.2 Filtro di Ricerca Istantaneo dei Libri</h4>
+          <p>
+            In cima al cassetto è posizionato un campo filtro in tempo reale: digitando ad esempio <code>Rom</code> o <code>Mat</code> l'elenco si restringe all'istante al libro desiderato.
+          </p>
+
+          <h4>3.3 Griglia dei Capitoli ad Accesso Diretto</h4>
+          <p>
+            Selezionando un libro (ad esempio <em>Salmi</em>), compare una matrice numerica a pulsanti compatti: cliccando su <code>23</code> il testo si sposta immediatamente al Salmo 23, pre-caricando in background i lessici Strong e i commentari patristici.
+          </p>
+        </div>
+        <div class="lang-en">
+          <h3>3. The 66-Book Biblical Canon & Fast Navigation</h3>
+          <p>
+            The first primary icon on the left ergonomic activity rail (<strong>📖 Biblical Canon</strong>) opens the canonical selector drawer, engineered to jump to any chapter in Scripture within two clicks.
+          </p>
+
+          <h4>3.1 Traditional Canonical Framework: OT (39 Books) & NT (27 Books)</h4>
+          <p>
+            The drawer neatly categorizes the 66 inspired books across covenants and historical genres:
+          </p>
+          <ul>
+            <li><strong>Old Testament (39 Books)</strong>:
+              <ul>
+                <li><em>The Law / Torah (Pentateuch)</em>: Genesis through Deuteronomy.</li>
+                <li><em>Historical Books (12 Books)</em>: Joshua through Esther, detailing the monarchs of Israel and Judah.</li>
+                <li><em>Poetry & Wisdom Literature (5 Books)</em>: Job, Psalms, Proverbs, Ecclesiastes, Song of Solomon.</li>
+                <li><em>Major Prophets (5 Books)</em>: Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel.</li>
+                <li><em>Minor Prophets (12 Books)</em>: Hosea through Malachi.</li>
+              </ul>
+            </li>
+            <li><strong>New Testament (27 Books)</strong>:
+              <ul>
+                <li><em>The Four Holy Gospels</em>: Matthew, Mark, Luke, John.</li>
+                <li><em>Apostolic History</em>: Acts of the Apostles.</li>
+                <li><em>Pauline Epistles (14 Letters)</em>: Romans through Hebrews, spanning doctrinal and pastoral letters.</li>
+                <li><em>General / Catholic Epistles (7 Letters)</em>: James, 1-2 Peter, 1-2-3 John, Jude.</li>
+                <li><em>Prophetic Climax</em>: The Revelation of Jesus Christ.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h4>3.2 Instant Real-Time Book Filter</h4>
+          <p>
+            An interactive live filter bar sits atop the drawer: typing <code>Rom</code> or <code>Heb</code> instantly narrows down the catalog with zero keystroke delay.
+          </p>
+
+          <h4>3.3 Direct Chapter Grid Matrix</h4>
+          <p>
+            Clicking any book (e.g., <em>Exodus</em>) unfolds an ergonomic number grid: selecting <code>6</code> immediately opens Exodus 6 on the main reading canvas, pre-fetching Strong's codes and commentaries into memory.
+          </p>
+        </div>
+        <div class="lang-es">
+          <h3>3. El Canon Bíblico de 66 Libros & Navegación Inmediata</h3>
+          <p>
+            El primer icono del raíl lateral izquierdo (<strong>📖 Canon Bíblico</strong>) despliega el selector canónico, diseñado para navegar hacia cualquier pasaje bíblico en un máximo de dos clics.
+          </p>
+
+          <h4>3.1 Estructura Canónica Tradicional: AT (39 Libros) & NT (27 Libros)</h4>
+          <p>
+            El selector organiza rigurosamente los 66 libros inspirados de las Escrituras en sus géneros históricos:
+          </p>
+          <ul>
+            <li><strong>Antiguo Testamento (39 Libros)</strong>:
+              <ul>
+                <li><em>La Ley / Torá (Pentateuco)</em>: Génesis a Deuteronomio.</li>
+                <li><em>Libros Históricos (12 Libros)</em>: Josué a Ester, con la historia de los reyes de Israel y Judá.</li>
+                <li><em>Libros Poéticos & Sapienciales (5 Libros)</em>: Job, Salmos, Proverbios, Eclesiastés, Cantares.</li>
+                <li><em>Profetas Mayores (5 Libros)</em>: Isaías, Jeremías, Lamentaciones, Ezequiel, Daniel.</li>
+                <li><em>Profetas Menores (12 Libros)</em>: Oseas a Malaquías.</li>
+              </ul>
+            </li>
+            <li><strong>Nuevo Testamento (27 Libros)</strong>:
+              <ul>
+                <li><em>Los Cuatro Evangelios</em>: Mateo, Marcos, Lucas, Juan.</li>
+                <li><em>Historia Apostólica</em>: Hechos de los Apóstoles.</li>
+                <li><em>Epístolas Paulinas (14 Cartas)</em>: Romanos a Hebreos, abarcando cartas doctrinales y pastorales.</li>
+                <li><em>Epístolas Generales / Universales (7 Cartas)</em>: Santiago, 1-2 Pedro, 1-2-3 Juan, Judas.</li>
+                <li><em>Culminación Profética</em>: Apocalipsis.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h4>3.2 Filtro de Búsqueda Instantáneo de Libros</h4>
+          <p>
+            En la parte superior del panel se ubica una barra de filtrado en tiempo real: al escribir <code>Rom</code> o <code>Mat</code> la lista se reduce al instante al libro correspondiente.
+          </p>
+
+          <h4>3.3 Matriz de Capítulos de Acceso Directo</h4>
+          <p>
+            Al pulsar sobre un libro (por ejemplo, <em>Salmos</em>), se despliega una cuadrícula numérica: haciendo clic en <code>23</code> el texto se traslada de inmediato al Salmo 23, precargando en memoria los léxicos Strong y comentarios patrísticos.
+          </p>
+        </div>
+      </section>\n\n      <!-- CAP4 -->
+      <section id="cap4" class="chapter-card glass-panel">
+        <div class="lang-it">
+          <h3>4. Hub Biblioteca & I 519 Moduli SWORD Offline</h3>
+          <p>
+            Il secondo hub dell'activity rail (<strong>📚 Biblioteca SWORD</strong>) raccoglie il patrimonio bibliografico più vasto mai integrato in un'applicazione accademica offline: <strong>519 moduli verificati</strong> pronti all'uso senza connessione internet.
+          </p>
+
+          <h4>4.1 Il Patrimonio dei 519 Moduli SWORD</h4>
+          <p>I moduli sono catalogati e indicizzati secondo quattro categorie:</p>
+          <ul>
+            <li><strong>Bibbie Storiche & Poliglotte (Oltre 120 versioni)</strong>: testi completi in oltre 20 lingue, inclusi i manoscritti orientali e le versioni della Riforma protestante europea.</li>
+            <li><strong>Commentari Patristici, Riformati ed Esegetici (Oltre 180 opere)</strong>: Matthew Henry Complete, Note della Bibbia di Ginevra 1599, John Darby Synopsis, Scofield Reference Notes, Jamieson-Fausset-Brown, John Gill Exposition of the Entire Bible, e gli scritti integrali dei Padri Ante-Niceni e Post-Niceni.</li>
+            <li><strong>Lessici & Dizionari Biblici</strong>: Strong Exhaustive Lexicons (Ebraico/Caldaico H1-H8674 e Greco G1-G5624), Thayer Greek Lexicon, Brown-Driver-Briggs (BDB), International Standard Bible Encyclopedia (ISBE), Easton Bible Dictionary.</li>
+            <li><strong>Glossari Teologici & Ausili Morfologici</strong>: tavole grammaticali Robinson, OSHM (Open Scriptures Hebrew Morphology) e compendi esegetici.</li>
+          </ul>
+
+          <h4>4.2 Workspace Multi-Pane Tiling (Fino a 4 Finestre Affiancate)</h4>
+          <p>
+            Per gli studiosi che necessitano di esaminare simultaneamente il testo originale, due traduzioni moderne e un commentario patristico, BibleTime include il <strong>Multi-Pane Workspace</strong>:
+          </p>
+          <ul>
+            <li><strong>Layout 2x2 Flessibile</strong>: suddivide lo schermo in 2, 3 o 4 quadranti indipendenti.</li>
+            <li><strong>Synchronized Scroll-Lock</strong>: attivando il blocco sincronizzato, lo scorrimento di una finestra fa avanzare istantaneamente tutte le altre in tempo reale, mantenendo il versetto attivo perfettamente allineato.</li>
+          </ul>
+
+          <h4>4.3 Motore di Ricerca Globale Full-Text (FTS5 SQLite)</h4>
+          <p>
+            Il motore di ricerca interno sfrutta le tabelle virtuali FTS5 (Full-Text Search) con ranking BM25:
+          </p>
+          <ul>
+            <li><strong>Velocità <25ms</strong>: cerca parole esatte, frasi tra virgolette o combinazioni booleane (<code>AND</code>, <code>OR</code>, <code>NOT</code>) su tutti i 31.102 versetti della Scrittura in una frazione di secondo.</li>
+            <li><strong>Filtro di Ambito</strong>: limita la ricerca all'Antico Testamento, al Nuovo Testamento, al Pentateuco, ai Vangeli o a un singolo libro.</li>
+          </ul>
+
+          <h4>4.4 Audio Bibbia & Lettura Oratoria Vocale</h4>
+          <p>
+            Integrato nel cassetto biblioteca, il riproduttore audio oratorio permette di ascoltare la lettura continua della Scrittura con evidenziazione automatica del versetto corrente, ideale per la memorizzazione e la meditazione devozionale.
+          </p>
+        </div>
+        <div class="lang-en">
+          <h3>4. Library Hub & The 519 Offline SWORD Modules</h3>
+          <p>
+            The second hub on the activity rail (<strong>📚 SWORD Library</strong>) gathers the most extensive bibliographic heritage ever consolidated into an offline academic application: <strong>519 curated modules</strong> ready for instantaneous consultation with zero internet dependency.
+          </p>
+
+          <h4>4.1 The 519-Module SWORD Heritage</h4>
+          <p>The collection is indexed across four major scholarly categories:</p>
+          <ul>
+            <li><strong>Historical & Polyglot Bibles (Over 120 translations)</strong>: unabridged texts across 20+ languages, including oriental codices and European Reformation landmark editions.</li>
+            <li><strong>Patristic, Reformed & Exegetical Commentaries (Over 180 works)</strong>: Matthew Henry Complete, Geneva 1599 Notes, John Darby Synopsis, Scofield Reference Notes, Jamieson-Fausset-Brown, John Gill Exposition, and the unabridged Ante-Nicene and Post-Nicene Fathers.</li>
+            <li><strong>Lexicons & Biblical Dictionaries</strong>: Strong's Exhaustive Lexicons (Hebrew/Chaldee H1-H8674, Greek G1-G5624), Thayer Greek Lexicon, Brown-Driver-Briggs (BDB), ISBE, Easton's Bible Dictionary.</li>
+            <li><strong>Theological Glossaries & Morphological Keys</strong>: Robinson morphology codes, OSHM grammar tags, and lexical handbooks.</li>
+          </ul>
+
+          <h4>4.2 Multi-Pane Tiling Workspace (Up to 4 Synchronized Panes)</h4>
+          <p>
+            For scholars comparing the original Masoretic text, an ancient translation, a modern vernacular edition, and a patristic commentary simultaneously:
+          </p>
+          <ul>
+            <li><strong>Flexible 2x2 Grid Layout</strong>: divides your monitor into 2, 3, or 4 independent scholarly panes.</li>
+            <li><strong>Synchronized Scroll-Lock</strong>: toggling synchronized scroll ensures that scrolling any window moves all other viewports in lockstep, keeping the target verse precisely aligned.</li>
+          </ul>
+
+          <h4>4.3 High-Speed Global Full-Text Search (SQLite FTS5)</h4>
+          <p>
+            The internal search engine leverages SQLite FTS5 virtual tables with BM25 algorithmic relevance ranking:
+          </p>
+          <ul>
+            <li><strong>Sub-25ms Execution</strong>: queries exact phrases, boolean operators (<code>AND</code>, <code>OR</code>, <code>NOT</code>), or wildcards across all 31,102 verses in milliseconds.</li>
+            <li><strong>Corpus Scoping</strong>: restricts searches to the Old Testament, New Testament, Pentateuch, Gospels, or specific books.</li>
+          </ul>
+
+          <h4>4.4 Audio Bible & Oratorical Scripture Player</h4>
+          <p>
+            Built directly into the library interface, the oratorical player delivers clean voice playback with synchronized verse highlighting, perfect for meditative immersion and auditory Scripture memorization.
+          </p>
+        </div>
+        <div class="lang-es">
+          <h3>4. Hub Biblioteca & Los 519 Módulos SWORD Offline</h3>
+          <p>
+            El segundo centro del raíl lateral (<strong>📚 Biblioteca SWORD</strong>) reúne el acervo bibliográfico más extenso jamás integrado en una aplicación académica local: <strong>519 módulos verificados</strong> listos para su uso sin conexión a internet.
+          </p>
+
+          <h4>4.1 El Patrimonio de los 519 Módulos SWORD</h4>
+          <p>Los módulos están catalogados en cuatro categorías exegéticas:</p>
+          <ul>
+            <li><strong>Biblias Históricas y Políglotas (Más de 120 versiones)</strong>: textos íntegros en más de 20 idiomas, incluyendo manuscritos orientales y versiones históricas de la Reforma protestante.</li>
+            <li><strong>Comentarios Patrísticos, Reformados y Exegéticos (Más de 180 obras)</strong>: Matthew Henry Completo, Notas de la Biblia de Ginebra 1599, Sinopsis de Darby, Scofield, Jamieson-Fausset-Brown, John Gill y la colección completa de los Padres Ante-Nicenos y Post-Nicenos.</li>
+            <li><strong>Léxicos y Diccionarios Bíblicos</strong>: Léxicos Exhaustivos Strong (Hebreo/Arameo H1-H8674, Griego G1-G5624), Léxico Griego de Thayer, Brown-Driver-Briggs (BDB), ISBE y Diccionario Bíblico Easton.</li>
+            <li><strong>Glosarios Teológicos y Claves Morfológicas</strong>: códigos morfológicos Robinson, OSHM y compendios gramaticales.</li>
+          </ul>
+
+          <h4>4.2 Espacio Multi-Panel (Hasta 4 Vistas Sincronizadas)</h4>
+          <p>
+            Para los investigadores que necesitan cotejar simultáneamente el texto original, dos traducciones modernas y un comentario patrístico:
+          </p>
+          <ul>
+            <li><strong>Distribución 2x2 Flexible</strong>: divide la pantalla en 2, 3 o 4 paneles independientes.</li>
+            <li><strong>Desplazamiento Sincronizado (Scroll-Lock)</strong>: al activar el bloqueo sincronizado, el avance de cualquiera de las ventanas desplaza todas las demás en tiempo real, manteniendo el versículo de estudio perfectamente alineado.</li>
+          </ul>
+
+          <h4>4.3 Motor de Búsqueda Global Full-Text (SQLite FTS5)</h4>
+          <p>
+            El motor de búsqueda interno utiliza tablas virtuales SQLite FTS5 con ordenación algorítmica BM25:
+          </p>
+          <ul>
+            <li><strong>Velocidad <25ms</strong>: localiza palabras exactas, frases entrecomilladas o combinaciones booleanas (<code>AND</code>, <code>OR</code>, <code>NOT</code>) sobre los 31.102 versículos de la Biblia en milisegundos.</li>
+            <li><strong>Filtro de Alcance</strong>: permite limitar la búsqueda al Antiguo Testamento, Nuevo Testamento, Pentateuco, Evangelios o a un libro concreto.</li>
+          </ul>
+
+          <h4>4.4 Audio Biblia & Reproductor Oratorio</h4>
+          <p>
+            Integrado en el panel de biblioteca, el reproductor de voz oratoria permite escuchar la lectura continua de las Escrituras con resaltado automático del versículo activo, idóneo para la meditación devocional y memorización bíblica.
+          </p>
+        </div>
+      </section>\n\n      <!-- CAP5 -->
+      <section id="cap5" class="chapter-card glass-panel">
+        <div class="lang-it">
+          <h3>5. Hub Lingue Originali, Reverse Interlinear & Filologia</h3>
+          <p>
+            Il terzo hub (<strong>🏛️ Lingue Originali & Filologia</strong>) fornisce la strumentazione accademica indispensabile per l'analisi diretta dei testi Masoretici, Ellenistici ed Epigrafici.
+          </p>
+
+          <h4>5.1 Reverse Interlinear Morfologico a 5 Livelli</h4>
+          <p>
+            A differenza dei comuni interlineari rigidi, la <strong>Reverse Interlinear Matrix</strong> di BibleTime mantiene l'ordine sintattico naturale della traduzione moderna, allineando sotto ogni singola parola 5 livelli scientifici:
+          </p>
+          <ol style="margin-left: 1.5rem; color: #cbd5e1; font-size: 0.92rem; line-height: 1.8;">
+            <li><strong>Token Tradotto</strong>: la parola nella versione moderna in lingua d'uso.</li>
+            <li><strong>Lemma Originale</strong>: il termine greco o ebraico con vocalizzazione completa e cantillazione masoretica.</li>
+            <li><strong>Traslitterazione Fonetica</strong>: pronuncia guidata con accenti per una corretta dizione.</li>
+            <li><strong>Codice Strong Cliccabile</strong>: collegamento diretto al dizionario ebraico (H) o greco (G) con definizione esaustiva.</li>
+            <li><strong>Decodifica Morfologica & Glifo Paleo-Ebraico</strong>: scomposizione grammaticale (es. <em>Verbo Qal Perfetto 3ª persona maschile singolare</em>) affiancata dal glifo pittografico proto-sinaitico.</li>
+          </ol>
+
+          <h4>5.2 Decodificatore Pittografico Paleo-Ebraico & Radici Proto-Sinaitiche</h4>
+          <p>
+            Esplora l'archeologia della scrittura consonantica semitica: ogni lettera ebraica viene mostrata nella sua transizione storica a tre stadi:
+          </p>
+          <ul>
+            <li><strong>Geroglifico Gardiner Originale</strong> (es. 𓃾 per Aleph, testa di bue).</li>
+            <li><strong>Pittogramma Paleo-Ebraico / Fenicio</strong> (𐤀).</li>
+            <li><strong>Carattere Quadrato Masoretico</strong> (א).</li>
+            <li><strong>Significato Radicale & Risonanza Cristologica</strong>: scomposizione delle lettere della radice (<em>Shoresh</em>) e calcolo gematrico dei valori numerici.</li>
+          </ul>
+
+          <h4>5.3 Apparato Critico NA28 / UBS5 & Manoscritti Antichi</h4>
+          <p>
+            Permette di condurre l'esame della critica testuale versetto per versetto:
+          </p>
+          <ul>
+            <li><strong>Collazione Manoscritti Primari</strong>: confronta le varianti testuali dei papiri del II-III secolo ($P^{45}, P^{46}, P^{66}, P^{75}$) e dei codici onciali del IV secolo (<em>Codex Sinaiticus $\aleph$, Codex Vaticanus B, Codex Alexandrinus A, Codex Ephraemi C</em>).</li>
+            <li><strong>Tipi di Varianti</strong>: omesse, aggiunte, lezioni alternative e glosse con indicazione delle probabilità filologiche dell'originale.</li>
+          </ul>
+
+          <h4>5.4 Riferimenti Incrociati TSK (Treasury of Scripture Knowledge)</h4>
+          <p>
+            Oltre <strong>500.000 collegamenti tematici e dottrinali</strong> atomici archiviati in SQLite: cliccando su qualsiasi versetto, il sistema elenca le catene profetiche e tipologiche per spiegare la Scrittura unicamente mediante la Scrittura (<em>Scriptura sacra sui ipsius interpres</em>).
+          </p>
+        </div>
+        <div class="lang-en">
+          <h3>5. Original Languages, 5-Level Reverse Interlinear & Philology Hub</h3>
+          <p>
+            The third hub (<strong>🏛️ Original Languages & Philology</strong>) delivers the scholarly apparatus required for rigorous engagement with Masoretic, Hellenistic, and Epigraphic source texts.
+          </p>
+
+          <h4>5.1 The 5-Level Morphological Reverse Interlinear Matrix</h4>
+          <p>
+            Unlike rigid traditional interlinears that force unnatural archaic word order, BibleTime's <strong>Reverse Interlinear Matrix</strong> preserves the natural syntax of your vernacular translation while aligning 5 scientific layers underneath each word:
+          </p>
+          <ol style="margin-left: 1.5rem; color: #cbd5e1; font-size: 0.92rem; line-height: 1.8;">
+            <li><strong>Vernacular Token</strong>: the word as rendered in your selected modern translation.</li>
+            <li><strong>Original Lemma</strong>: Greek or Hebrew source lemma with full Masoretic vowel pointings and cantillation accents.</li>
+            <li><strong>Phonetic Transliteration</strong>: scholarly pronunciation guide with phonetic stress.</li>
+            <li><strong>Clickable Strong's Code</strong>: direct modal link to Hebrew (H) or Greek (G) lexicons.</li>
+            <li><strong>Morphological Parsing & Paleo Glyph</strong>: grammatical tags (e.g., <em>Verb Qal Perfect 3rd Masculine Singular</em>) paired with ancient Proto-Sinaitic pictographic glyphs.</li>
+          </ol>
+
+          <h4>5.2 Paleo-Hebrew Pictographic Decoder & Proto-Sinaitic Roots</h4>
+          <p>
+            Trace the evolutionary history of Semitic consonant writing: each Hebrew consonant is displayed across its three-stage development:
+          </p>
+          <ul>
+            <li><strong>Original Gardiner Egyptian Hieroglyph</strong> (e.g., 𓃾 for Aleph, ox head).</li>
+            <li><strong>Proto-Sinaitic / Phoenician Pictogram</strong> (𐤀).</li>
+            <li><strong>Masoretic Square Script</strong> (א).</li>
+            <li><strong>Root Semantics & Christological Resonance</strong>: tri-consonantal root (<em>Shoresh</em>) breakdown, gematria numerical values, and covenant typology.</li>
+          </ul>
+
+          <h4>5.3 NA28 / UBS5 Critical Apparatus & Ancient Manuscripts</h4>
+          <p>
+            Conduct rigorous textual criticism verse by verse:
+          </p>
+          <ul>
+            <li><strong>Primary Manuscript Collation</strong>: evaluates readings across 2nd/3rd century papyri ($P^{45}, P^{46}, P^{66}, P^{75}$) and 4th century uncial codices (<em>Codex Sinaiticus $\aleph$, Vaticanus B, Alexandrinus A, Ephraemi Rescriptus C</em>).</li>
+            <li><strong>Variant Classification</strong>: omissions, interpolations, word order permutations, and marginal glosses with genealogical manuscript weighting.</li>
+          </ul>
+
+          <h4>5.4 Treasury of Scripture Knowledge (TSK 500k Cross-References)</h4>
+          <p>
+            Over <strong>500,000 chained topical and theological cross-references</strong> indexed in SQLite: clicking any verse surfaces prophetic, historical, and typological links to interpret Scripture with Scripture (<em>Scriptura sacra sui ipsius interpres</em>).
+          </p>
+        </div>
+        <div class="lang-es">
+          <h3>5. Hub Lenguas Originales, Interlineal Inverso & Filología</h3>
+          <p>
+            El tercer hub (<strong>🏛️ Lenguas Originales & Filología</strong>) proporciona el instrumental académico imprescindible para el análisis directo de los textos Masoréticos, Helenísticos y Epigráficos.
+          </p>
+
+          <h4>5.1 Matriz de Interlineal Inverso Morfológico a 5 Niveles</h4>
+          <p>
+            A diferencia de los interlineales tradicionales rígidos, la <strong>Reverse Interlinear Matrix</strong> de BibleTime mantiene el orden sintáctico fluido de la traducción moderna, alineando debajo de cada palabra 5 estratos científicos:
+          </p>
+          <ol style="margin-left: 1.5rem; color: #cbd5e1; font-size: 0.92rem; line-height: 1.8;">
+            <li><strong>Token Traducido</strong>: la palabra tal como aparece en tu versión bíblica en idioma vernáculo.</li>
+            <li><strong>Lema Original</strong>: término hebreo o griego con vocalización masorética completa y acentos de cantilación.</li>
+            <li><strong>Transliteración Fonética</strong>: pronunciación guiada con acentuación para dicción exacta.</li>
+            <li><strong>Código Strong Clicable</strong>: acceso directo al léxico hebreo (H) o griego (G) con definición analítica.</li>
+            <li><strong>Análisis Morfológico & Glifo Paleo-Hebreo</strong>: decodificación gramatical (ej. <em>Verbo Qal Perfecto 3ª persona masculina singular</em>) acompañada del pictograma proto-sinaítico.</li>
+          </ol>
+
+          <h4>5.2 Decodificador Pictográfico Paleo-Hebreo & Raíces Proto-Sinaíticas</h4>
+          <p>
+            Examina la arqueología de la escritura consonántica semítica: cada letra hebrea se muestra en su transición histórica en tres fases:
+          </p>
+          <ul>
+            <li><strong>Jeroglífico Gardiner Original</strong> (ej. 𓃾 para Álef, cabeza de buey).</li>
+            <li><strong>Pictograma Paleo-Hebreo / Fenicio</strong> (𐤀).</li>
+            <li><strong>Escritura Cuadrada Masorética</strong> (א).</li>
+            <li><strong>Significado Radical & Resonancia Cristológica</strong>: descomposición de la raíz triconsonántica (<em>Shoresh</em>) y cómputo de valores gemátricos.</li>
+          </ul>
+
+          <h4>5.3 Aparato Crítico NA28 / UBS5 & Manuscritos Antiguos</h4>
+          <p>
+            Permite efectuar la crítica textual versículo por versículo:
+          </p>
+          <ul>
+            <li><strong>Colación de Manuscritos Primarios</strong>: coteja las lecturas variantes de papiros de los siglos II-III ($P^{45}, P^{46}, P^{66}, P^{75}$) y códices unciales del siglo IV (<em>Codex Sinaiticus $\aleph$, Vaticanus B, Alexandrinus A, Ephraemi C</em>).</li>
+            <li><strong>Clasificación de Variantes</strong>: omisiones, interpolaciones, lecturas divergentes y glosas marginales con valoración filológica.</li>
+          </ul>
+
+          <h4>5.4 Referencias Cruzadas TSK (Treasury of Scripture Knowledge)</h4>
+          <p>
+            Más de <strong>500.000 referencias cruzadas temáticas y doctrinales</strong> indexadas en SQLite: al hacer clic en cualquier versículo, el sistema lista las cadenas proféticas y tipológicas para explicar la Escritura a través de la Escritura (<em>Scriptura sacra sui ipsius interpres</em>).
+          </p>
+        </div>
+      </section>\n\n      <!-- CAP6 -->
+      <section id="cap6" class="chapter-card glass-panel">
+        <div class="lang-it">
+          <h3>6. Hub Esegesi Accademica, Scriptorium AI & Socratic Council</h3>
+          <p>
+            Il quarto hub (<strong>✍️ Accademia Esegetica & AI</strong>) rappresenta il vertice scientifico di BibleTime, dove convergono l'ermeneutica biblica classica e i più avanzati modelli di intelligenza artificiale accademica.
+          </p>
+
+          <h4>6.1 I 27 Moduli Esegetici dello Scriptorium AI</h4>
+          <p>
+            Lo <strong>Scriptorium AI</strong> non genera risposte generiche: orchestra 27 protocolli esegetici formali, selezionabili singolarmente o in combinazione, suddivisi in 3 profondità di lavoro:
+          </p>
+          <ul>
+            <li><strong>Modalità Agile (Sintesi Rapida)</strong>: compila in pochi secondi le coordinate essenziali del passo (significato letterale, contesto storico, 3 punti omiletici e applicazione pastorale immediata).</li>
+            <li><strong>Modalità Deep (Studio Esegetico Rigoroso)</strong>: viviseziona il passo con analisi morfologica dei termini chiave, retroterra culturale del Vicino Oriente antico o del mondo greco-romano, e correlazione con il patto teologico.</li>
+            <li><strong>Modalità Magnum Opus (Trattato Accademico Esaustivo)</strong>: produce una monografia filologico-teologica completa con apparato critico, disamina della storia dell'interpretazione (Patristica, Medioevo, Riforma, Età Contemporanea), teologia biblica sistematica e bibliografia scientifica.</li>
+          </ul>
+
+          <h4>6.2 Socratic Council AI (Concilio Teologico Polifonico a 5 Voci)</h4>
+          <p>
+            Con un solo clic, apri un dibattito dialettico istantaneo tra 5 giganti della storia della Chiesa sul passo attivo:
+          </p>
+          <ul>
+            <li><strong>Sant'Agostino d'Ippona (354-430)</strong>: Patristica Latina, sovranità della grazia e senso mistico-spirituale.</li>
+            <li><strong>San Giovanni Crisostomo (349-407)</strong>: Scuola di Antiochia, esegesi storico-letterale ed esortazione morale.</li>
+            <li><strong>Martin Lutero (1483-1546)</strong>: Riforma Protestante, dialettica Legge/Vangelo e Sola Fide cristocentrica.</li>
+            <li><strong>Giovanni Calvino (1509-1564)</strong>: Tradizione Riformata, <em>brevitas et facilitas</em>, patto di redenzione e Soli Deo Gloria.</li>
+            <li><strong>Charles Haddon Spurgeon (1834-1892)</strong>: Risveglio Evangelico, passione omiletica ardente e consolazione pastorale.</li>
+          </ul>
+          <p>
+            Il concilio elabora una <strong>Sintesi di Consenso</strong> unanime, evidenzia le <strong>Tensioni Dialettiche Feconde</strong> tra le tradizioni, e fornisce per ciascun maestro la sua tesi esegetica con riscontri scritturali e applicazione pastorale concreta.
+          </p>
+
+          <h4>6.3 Visualizzatore Chiasmi ad Arco (Sintassi Strutturale Concentrica)</h4>
+          <p>
+            La poesia e la prosa ebraica utilizzano frequentemente strutture a chiasmo per focalizzare l'attenzione dell'ascoltatore sul centro del messaggio. L'algoritmo di BibleTime:
+          </p>
+          <ul>
+            <li>Riconosce la simmetria letteraria concentrica (schema $A-B-C-B'-A'$ o $A-B-C-D-C'-B'-A'$).</li>
+            <li>Colora distintamente ogni arco parallelo per evidenziare le corrispondenze tematiche.</li>
+            <li>Mette in risalto con luce dorata il <strong>FULCRO TEOLOGICO / PIVOT (X)</strong>, il vertice dottrinale su cui converge l'intera pericope.</li>
+          </ul>
+
+          <h4>6.4 Syntax Tree & Quiz Sintattico Seminariale</h4>
+          <p>
+            Disegna alberi gerarchici vettoriali che illustrano le proposizioni reggenti, le coordinate, le subordinate relative, temporali o causali, e i costrutti participiali. La modalità <strong>Quiz Seminariale</strong> permette a studenti e docenti di mettersi alla prova nel riconoscimento delle funzioni sintattiche bibliche con punteggio immediato.
+          </p>
+
+          <h4>6.5 One-Click Exegetical Dossier & Scheda Studio A4 (Passage Guide 360°)</h4>
+          <p>
+            Genera un fascicolo completo impaginato ad alta risoluzione per la stampa A4 o salvataggio PDF: include testo originale a fronte, analisi dei lemmi principali, scaletta espositiva e domande per la meditazione comunitaria.
+          </p>
+        </div>
+        <div class="lang-en">
+          <h3>6. Academic Exegesis, Scriptorium AI & Socratic Council Hub</h3>
+          <p>
+            The fourth hub (<strong>✍️ Exegetical Academy & AI</strong>) represents the scientific pinnacle of BibleTime, uniting classical grammatical-historical hermeneutics with cutting-edge academic intelligence.
+          </p>
+
+          <h4>6.1 The 27 Exegetical Protocols of Scriptorium AI</h4>
+          <p>
+            <strong>Scriptorium AI</strong> avoids superficial chatbot outputs: it coordinates 27 rigorous academic hermeneutical protocols, selectable individually or in modular pipelines across 3 analytical depths:
+          </p>
+          <ul>
+            <li><strong>Agile Mode (Executive Summary)</strong>: produces a rapid synthesis of primary themes, literal sense, historical context, 3 homiletical points, and direct pastoral application in seconds.</li>
+            <li><strong>Deep Mode (Grammatical-Historical Breakdown)</strong>: delivers thorough lexical dissection of key lemmas, ancient Near Eastern cultural background, and covenantal theological development.</li>
+            <li><strong>Magnum Opus Mode (Unabridged Scholarly Treatise)</strong>: formulates an exhaustive monograph complete with textual critical variants, history of interpretation (Patristic, Medieval, Reformation, Modern), biblical theology, and academic bibliography.</li>
+          </ul>
+
+          <h4>6.2 Socratic Council AI (5-Voice Polyphonic Theological Debate)</h4>
+          <p>
+            With one click, convene an instant dialectical council among 5 towering figures of Church history on your active Scripture passage:
+          </p>
+          <ul>
+            <li><strong>St. Augustine of Hippo (354-430)</strong>: Latin Patristics, sovereignty of grace, and mystical-spiritual depth.</li>
+            <li><strong>St. John Chrysostom (349-407)</strong>: School of Antioch, grammatical-historical exegesis, and moral exhortation.</li>
+            <li><strong>Martin Luther (1483-1546)</strong>: Protestant Reformation, Christocentric Sola Fide, and Law/Gospel distinction.</li>
+            <li><strong>John Calvin (1509-1564)</strong>: Reformed Tradition, <em>brevitas et facilitas</em>, covenant of grace, and Soli Deo Gloria.</li>
+            <li><strong>Charles Haddon Spurgeon (1834-1892)</strong>: Evangelical Revival, passionate pulpit homiletics, and pastoral comfort.</li>
+          </ul>
+          <p>
+            The council articulates an overarching <strong>Consensus Synthesis</strong>, delineates fruitful <strong>Dialectical Tensions</strong> between traditions, and provides each master's textual thesis, cross-references, and actionable ministry application.
+          </p>
+
+          <h4>6.3 Arc Chiasm Visualizer (Concentric Structural Syntax)</h4>
+          <p>
+            Semitic poetry and prose regularly employ inverted chiasms to direct the reader's meditation toward the geometric center of the pericope. BibleTime's heuristic engine:
+          </p>
+          <ul>
+            <li>Maps concentric literary symmetries (e.g., $A-B-C-B'-A'$ or $A-B-C-D-C'-B'-A'$).</li>
+            <li>Applies chromatic harmony across parallel thematic strophes.</li>
+            <li>Illuminates the central <strong>THEOLOGICAL PIVOT / CLIMAX (X)</strong> with golden distinction.</li>
+          </ul>
+
+          <h4>6.4 AI Syntax Tree & Seminary Grammar Quiz</h4>
+          <p>
+            Generates vector clause dependency diagrams identifying main clauses, subordinate constructions, accusative qualifiers, and participial modifiers. The interactive <strong>Seminary Quiz Mode</strong> trains scholars in diagnosing original biblical sentence structures with real-time scoring.
+          </p>
+
+          <h4>6.5 One-Click 360° Exegetical Dossier & A4 Study Sheet</h4>
+          <p>
+            Compiles a clean monograph formatted for A4 print and PDF archiving: incorporates parallel original languages, lexical vocabulary, homiletic outline, and discussion questions for study groups.
+          </p>
+        </div>
+        <div class="lang-es">
+          <h3>6. Hub Exégesis Académica, Scriptorium IA & Socratic Council</h3>
+          <p>
+            El cuarto hub (<strong>✍️ Academia Exegética & IA</strong>) constituye la cumbre científica de BibleTime, donde confluyen la hermenéutica bíblica clásica y la inteligencia artificial especializada.
+          </p>
+
+          <h4>6.1 Los 27 Protocolos Exegéticos de Scriptorium IA</h4>
+          <p>
+            <strong>Scriptorium IA</strong> no emite respuestas superficiales: orquesta 27 protocolos hermenéuticos formales, seleccionables por separado o en conjunto, distribuidos en 3 profundidades de estudio:
+          </p>
+          <ul>
+            <li><strong>Modo Ágil (Síntesis Ejecutiva)</strong>: sintetiza en segundos el significado literal, el contexto histórico, 3 puntos homiléticos y la aplicación pastoral directa.</li>
+            <li><strong>Modo Profundo (Estudio Exegético Riguroso)</strong>: analiza minuciosamente los términos clave en lengua original, el trasfondo del Antiguo Oriente Próximo o del mundo grecorromano, y el desarrollo teológico del pacto.</li>
+            <li><strong>Modo Magnum Opus (Tratado Académico Exhaustivo)</strong>: redacta una monografía filológica completa con aparato crítico, historia de la interpretación (Patrística, Reforma, época contemporánea), teología bíblica sistemática y bibliografía científica.</li>
+          </ul>
+
+          <h4>6.2 Socratic Council IA (Concilio Teológico Polifónico a 5 Voces)</h4>
+          <p>
+            En un solo clic, celebra una mesa redonda dialéctica entre 5 gigantes de la historia de la Iglesia sobre el pasaje activo:
+          </p>
+          <ul>
+            <li><strong>San Agustín de Hipona (354-430)</strong>: Patrística Latina, soberanía de la gracia y sentido espiritual.</li>
+            <li><strong>San Juan Crisóstomo (349-407)</strong>: Escuela de Antioquía, exégesis histórico-literal y exhortación pastoral.</li>
+            <li><strong>Martín Lutero (1483-1546)</strong>: Reforma Protestante, dialéctica Ley/Evangelio y Sola Fide cristocéntrica.</li>
+            <li><strong>Juan Calvino (1509-1564)</strong>: Tradición Reformada, <em>brevitas et facilitas</em>, pacto de gracia y Soli Deo Gloria.</li>
+            <li><strong>Charles Haddon Spurgeon (1834-1892)</strong>: Avivamiento Evangélico, oratoria ardiente y consuelo pastoral.</li>
+          </ul>
+          <p>
+            El concilio emite una <strong>Síntesis de Consenso</strong> unánime, expone las <strong>Tensiones Dialécticas Fecundas</strong> entre las tradiciones, y desglosa para cada maestro su tesis exegética con citas bíblicas y aplicación pastoral.
+          </p>
+
+          <h4>6.3 Visualizador de Quiasmos en Arco (Sintaxis Estructural)</h4>
+          <p>
+            La poética y narrativa hebrea utilizan paralelismos invertidos para dirigir la meditación hacia el centro del mensaje divino. El motor de BibleTime:
+          </p>
+          <ul>
+            <li>Identifica la simetría literaria concéntrica (patrones $A-B-C-B'-A'$ o $A-B-C-D-C'-B'-A'$).</li>
+            <li>Aplica armonización cromática a cada estrofa paralela.</li>
+            <li>Destaca con resplandor dorado el <strong>FULCRO TEOLÓGICO / PÍVOT (X)</strong>, vértice doctrinal de la perícopa.</li>
+          </ul>
+
+          <h4>6.4 Syntax Tree & Quiz Sintáctico Seminarial</h4>
+          <p>
+            Dibuja diagramas de dependencia oracional que muestran proposiciones principales, subordinadas relativas, causales y construcciones participiales. El <strong>Quiz Seminarial</strong> entrena a profesores y seminaristas en el diagnóstico gramatical con evaluación inmediata.
+          </p>
+
+          <h4>6.5 Dosier Exegético 360° en 1 Clic & Ficha de Estudio A4</h4>
+          <p>
+            Compila un dosier académico maquetado para impresión en A4 o guardado en PDF: incluye sinopsis con el texto original, análisis de vocabulario clave, bosquejo del sermón y preguntas para grupos de estudio.
+          </p>
+        </div>
+      </section>\n\n      <!-- CAP7 -->
+      <section id="cap7" class="chapter-card glass-panel">
+        <div class="lang-it">
+          <h3>7. Hub RAG Semantico, Biblioteca Patristica Ibrida & Taccuino</h3>
+          <p>
+            Il quinto hub (<strong>📥 RAG Semantico & Fonti</strong>) unisce il database relazionale SQLite con il motore vettoriale semantico <strong>ChromaDB</strong>, consentendo di interrogare concettualmente oltre due millenni di letteratura teologica.
+          </p>
+
+          <h4>7.1 La Biblioteca Patristica Ibrida (67 Opere Fondamentali Pre-Caricate)</h4>
+          <p>
+            BibleTime include all'installazione 67 opere monumentali dei Padri della Chiesa e Riformatori interamente vettorizzate con metadati bilingui/trilingui:
+          </p>
+          <ul>
+            <li><strong>Padri Apostolici & Apologisti</strong>: Lettera di Clemente, Lettere di Ignazio d'Antiochia, Pastore d'Erma, Apologie di Giustino Martire, Testi di Atenagora e Ireneo di Lione (<em>Adversus Haereses</em>).</li>
+            <li><strong>Patristica Latina & Greca</strong>: Confessioni e <em>De Civitate Dei</em> di Agostino d'Ippona, Omelie sul Vangelo di Giovanni e su San Paolo di Giovanni Crisostomo, <em>De Incarnatione</em> di Atanasio d'Alessandria, scritti di Cipriano, Tertulliano e Basilio il Grande.</li>
+            <li><strong>Classici della Riforma</strong>: Istituzione della Religione Cristiana di Giovanni Calvino, Trattati teologici di Martin Lutero e scritti dei Puritani inglesi.</li>
+          </ul>
+
+          <h4>7.2 Ingestione Universale Drag & Drop di Documenti Personali</h4>
+          <p>
+            Puoi ampliare la base di conoscenza del software trascinando direttamente nel cassetto RAG i tuoi file personali:
+          </p>
+          <ul>
+            <li><strong>Formati Accettati</strong>: PDF, Word (<code>.docx</code>), file di testo semplice (<code>.txt</code>), file Markdown (<code>.md</code>) e URL web accademici.</li>
+            <li><strong>Auto-Tagging AI Istantaneo</strong>: all'atto dell'ingestione, l'algoritmo analizza il documento, estrae automaticamente i riferimenti biblici citati, calcola la <em>Big Idea</em> teologica e vettorizza il testo in blocchi semantici (chunks).</li>
+            <li><strong>Controllo Anti-Duplicati SHA-256</strong>: impedisce la memorizzazione ridondante del medesimo saggio o commentario.</li>
+          </ul>
+
+          <h4>7.3 Copilot AI Contestuale (Ctrl+L) & Ricerca Vettoriale Semantica</h4>
+          <p>
+            Il Copilot AI non è un semplice chatbot: ha accesso visivo immediato a ciò che stai leggendo. Puoi chiedergli:
+          </p>
+          <ul>
+            <li><em>"Come interpreta Agostino la figura di Melchisedec in questo capitolo?"</em></li>
+            <li><em>"Quali fonti patristiche nel mio archivio trattano il concetto di propiziazione espresso in questo versetto?"</em></li>
+            <li>Il Copilot interroga ChromaDB in tempo reale, estrae le citazioni letterali con riferimento a pagina/opera e le integra direttamente nella risposta.</li>
+          </ul>
+
+          <h4>7.4 Taccuino Personale, Note ai Versetti & Evidenziatore Cromatico</h4>
+          <p>
+            Ogni versetto della Scrittura può essere arricchito con le tue riflessioni personali:
+          </p>
+          <ul>
+            <li><strong>Evidenziatore a 6 Tonalità Semantiche</strong>: oro (promesse), smeraldo (comandamenti), zaffiro (dottrina), rubino (avvertimenti), ametista (preghiera), ambra (tipologia cristologica).</li>
+            <li><strong>Taccuino Markdown</strong>: annotazioni con formattazione ricca (grassetti, elenchi, tabelle, citazioni) esportabili in PDF per lo studio personale.</li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <h3>7. Semantic RAG, Hybrid Patristic Library & Personal Notebook Hub</h3>
+          <p>
+            The fifth hub (<strong>📥 Semantic RAG & Sources</strong>) merges SQLite relational storage with the <strong>ChromaDB</strong> local vector database, enabling conceptual semantic querying across two millennia of theology.
+          </p>
+
+          <h4>7.1 The Hybrid Patristic Library (67 Monumental Works Pre-Indexed)</h4>
+          <p>
+            BibleTime ships out of the box with 67 seminal patristic and reformational treatises fully vectorized:
+          </p>
+          <ul>
+            <li><strong>Apostolic Fathers & Early Apologists</strong>: 1 Clement, Seven Epistles of Ignatius, Shepherd of Hermas, Justin Martyr's Apologies, Athenagoras, and Irenaeus of Lyons (<em>Against Heresies</em>).</li>
+            <li><strong>Latin & Greek Patristic Classics</strong>: <em>The Confessions</em> and <em>The City of God</em> by Augustine of Hippo, John Chrysostom's Homilies on the Epistles of Paul, Athanasius of Alexandria (<em>On the Incarnation</em>), Tertullian, Cyprian, and Basil the Great.</li>
+            <li><strong>Reformation Masterworks</strong>: John Calvin's <em>Institutes of the Christian Religion</em>, Martin Luther's theological treatises, and classical puritan exegesis.</li>
+          </ul>
+
+          <h4>7.2 Universal Drag & Drop Ingestion of Personal Theological Files</h4>
+          <p>
+            Expand your scholarly repository by simply dragging documents into the RAG drawer:
+          </p>
+          <ul>
+            <li><strong>Supported Formats</strong>: PDF books, Word documents (<code>.docx</code>), plain text (<code>.txt</code>), Markdown (<code>.md</code>), and live academic URLs.</li>
+            <li><strong>Instant AI Auto-Tagging</strong>: upon ingestion, the engine automatically extracts cited Scripture references, crafts a theological <em>Big Idea</em> abstract, and indexes semantic vector chunks.</li>
+            <li><strong>SHA-256 Duplicate Prevention</strong>: verifies document fingerprints to prevent redundant vector storage.</li>
+          </ul>
+
+          <h4>7.3 Contextual Copilot AI (Ctrl+L) & Semantic Vector Recall</h4>
+          <p>
+            Copilot AI acts as an embodied academic research assistant with immediate visibility into your active pericope:
+          </p>
+          <ul>
+            <li><em>"How does Augustine interpret the role of Melchizedek in this passage?"</em></li>
+            <li><em>"Search my ingested books for historical references to the Day of Atonement in relation to this verse."</em></li>
+            <li>Copilot queries ChromaDB in real time, citing exact excerpts with author, title, and page attribution.</li>
+          </ul>
+
+          <h4>7.4 Personal Biblical Notebook & 6-Tone Semantic Highlighting</h4>
+          <p>
+            Enrich any verse in the canon with your own ministerial insights:
+          </p>
+          <ul>
+            <li><strong>6-Color Semantic Highlighters</strong>: gold (divine promises), emerald (moral commands), sapphire (theological doctrine), ruby (covenant warnings), amethyst (devotional prayers), amber (Christological types).</li>
+            <li><strong>Rich Markdown Journal</strong>: write formatted study notes (headers, tables, bullets, citations) exportable to PDF.</li>
+          </ul>
+        </div>
+        <div class="lang-es">
+          <h3>7. Hub RAG Semántico, Biblioteca Patrística Híbrida & Cuaderno</h3>
+          <p>
+            El quinto hub (<strong>📥 RAG Semántico & Fuentes</strong>) fusiona el almacenamiento relacional SQLite con el motor vectorial local <strong>ChromaDB</strong>, permitiendo búsquedas conceptuales en más de dos mil años de teología.
+          </p>
+
+          <h4>7.1 La Biblioteca Patrística Híbrida (67 Obras Monumentales Pre-Indexadas)</h4>
+          <p>
+            BibleTime incluye de serie 67 tratados cumbre de los Padres de la Iglesia y Reformadores completamente vectorizados:
+          </p>
+          <ul>
+            <li><strong>Padres Apostólicos & Apologistas</strong>: Carta de Clemente, Epístolas de Ignacio de Antioquía, El Pastor de Hermas, Apologías de Justino Mártir, e Ireneo de Lyon (<em>Contra las Herejías</em>).</li>
+            <li><strong>Patrística Latina & Griega</strong>: <em>Las Confesiones</em> y <em>La Ciudad de Dios</em> de Agustín de Hipona, Homilías de Juan Crisóstomo, <em>De Incarnatione</em> de Atanasio de Alejandría, Cipriano, Tertuliano y Basilio el Grande.</li>
+            <li><strong>Clásicos de la Reforma</strong>: <em>Institución de la Religión Cristiana</em> de Juan Calvino, tratados teológicos de Martín Lutero y comentarios puritanos.</li>
+          </ul>
+
+          <h4>7.2 Ingesta Universal Drag & Drop de Archivos Personales</h4>
+          <p>
+            Amplía tu base de conocimiento arrastrando directamente tus documentos al panel RAG:
+          </p>
+          <ul>
+            <li><strong>Formatos Admitidos</strong>: PDF, Word (<code>.docx</code>), texto sin formato (<code>.txt</code>), Markdown (<code>.md</code>) y enlaces web académicos.</li>
+            <li><strong>Auto-Etiquetado IA Inmediato</strong>: al ingresar el archivo, el sistema extrae automáticamente las citas bíblicas, redacta la <em>Gran Idea</em> teológica y vectoriza el texto en fragmentos semánticos.</li>
+            <li><strong>Control Anti-Duplicados SHA-256</strong>: previene la duplicidad de documentos idénticos en la base vectorial.</li>
+          </ul>
+
+          <h4>7.3 Copilot IA Contextual (Ctrl+L) & Búsqueda Vectorial</h4>
+          <p>
+            Copilot IA actúa como un asistente de investigación con acceso visual al pasaje activo en pantalla:
+          </p>
+          <ul>
+            <li><em>"¿Cómo interpreta Agustín la figura de Melquisedec en este capítulo?"</em></li>
+            <li><em>"¿Qué fuentes en mis archivos tratan el concepto de propiciación en este versículo?"</em></li>
+            <li>Copilot interroga a ChromaDB en tiempo real, citando fragmentos textuales con indicación de autor y obra.</li>
+          </ul>
+
+          <h4>7.4 Cuaderno Bíblico Personal & Resaltador Semántico en 6 Colores</h4>
+          <p>
+            Añade tus propias reflexiones ministeriales a cualquier versículo:
+          </p>
+          <ul>
+            <li><strong>Resaltador en 6 Tonos</strong>: oro (promesas divinas), esmeralda (mandamientos), zafiro (doctrina), rubí (advertencias), amatista (oración), ámbar (tipología cristológica).</li>
+            <li><strong>Cuaderno Markdown</strong>: notas con formato enriquecido (negritas, tablas, listas) exportables a PDF.</li>
+          </ul>
+        </div>
+      </section>\n\n      <!-- CAP8 -->
+      <section id="cap8" class="chapter-card glass-panel">
+        <div class="lang-it">
+          <h3>8. Hub Predicazione, Modalità Pulpito Fullscreen & Slide Deck 16:9</h3>
+          <p>
+            Il sesto hub (<strong>🎙️ Predicazione & Ministero</strong>) è stato sviluppato a stretto contatto con pastori, docenti di omiletica e oratori pubblici per colmare il divario tra la scrivania di studio e il podio di proclamazione.
+          </p>
+
+          <h4>8.1 Modalità Pulpito Fullscreen HUD (High-Contrast Stage View)</h4>
+          <p>
+            Attivabile con un clic o con il tasto rapido <code>F11</code>, trasforma il monitor in un leggio digitale ad alta visibilità:
+          </p>
+          <ul>
+            <li><strong>Canvas Scuro Antiriflesso</strong>: sfondo nero assoluto con tipografia ad altissimo contrasto per evitare l'abbagliamento sotto i riflettori del pulpito.</li>
+            <li><strong>Caratteri Scalabili Fino a 48px</strong>: dimensione del testo biblico regolabile al volo per consentire una lettura perfetta a oltre 1,5 metri di distanza dal leggio.</li>
+            <li><strong>Teleprompter di Note Omiletiche</strong>: un pannello laterale sincronizzato permette di leggere i tuoi appunti del sermone (punti chiave, illustrazioni, citazioni) con scorrimento fluido accanto ai versetti.</li>
+            <li><strong>Cronometro Oratorio & Timer Regolabile</strong>: conto alla rovescia impostabile (es. 20, 30 o 45 minuti) con avviso cromatico discreto (giallo a 5 minuti dal termine, rosso al superamento del tempo) per rispettare rigorosamente i tempi del culto.</li>
+          </ul>
+
+          <h4>8.2 Generatore Istantaneo di Slide Deck 16:9 Widescreen</h4>
+          <p>
+            Basta un clic per trasformare l'esegesi del passo in una presentazione di diapositive widescreen a 1080p/4K pronta per essere proiettata su beamer di chiesa, monitor di sala o streaming OBS:
+          </p>
+          <ul>
+            <li><strong>Layout Tipografico Accademico</strong>: impaginazione automatica del versetto biblico in caratteri eleganti, priva di distrazioni visive.</li>
+            <li><strong>Slide dei Punti Chiave</strong>: generazione automatica delle diapositive corrispondenti ai tre punti omiletici dell'esegesi.</li>
+            <li><strong>Supporto Multi-Monitor / Popout Window</strong>: proietta lo slide deck sul secondo schermo (HDMI / DisplayPort / AirPlay) mantenendo le note di regia sul monitor primario.</li>
+          </ul>
+
+          <h4>8.3 Scheda Omiletica Formato A4 per la Predicazione & Gruppi Biblici</h4>
+          <p>
+            Genera e stampa con un clic il foglio guida in formato A4, perfetto per il raccoglitore del pastore o per la distribuzione ai leader di cellule e gruppi di discepolato:
+          </p>
+          <ul>
+            <li>Testo biblico bilingue (versione d'uso + originale).</li>
+            <li>Contesto storico e retroterra grammaticale sintetico.</li>
+            <li>Tre punti del messaggio con domande aperte per l'applicazione pastorale nella vita quotidiana.</li>
+          </ul>
+
+          <h4>8.4 Archivio Casi Studio Pastorali Applicati</h4>
+          <p>
+            Modulo dedicato per la consulenza biblica applicata: guida il pastore nell'affrontare situazioni di crisi, lutto, discepolato matrimoniale o accompagnamento spirituale alla luce dei testi biblici pertinenti.
+          </p>
+        </div>
+        <div class="lang-en">
+          <h3>8. Preaching Hub, Fullscreen Pulpit HUD & 16:9 Slide Deck</h3>
+          <p>
+            The sixth hub (<strong>🎙️ Preaching & Ministry</strong>) was engineered in partnership with expository preachers, seminary homiletics professors, and live lecturers to bridge the gap between study desk and pulpit.
+          </p>
+
+          <h4>8.1 Fullscreen Pulpit HUD (High-Contrast Stage View)</h4>
+          <p>
+            Triggered via one click or keyboard shortcut <code>F11</code>, it converts your screen into an ergonomic preaching teleprompter:
+          </p>
+          <ul>
+            <li><strong>Glare-Free Pitch-Black Canvas</strong>: jet-black background with high-contrast typography engineered to eliminate glare under intense auditorium or sanctuary lighting.</li>
+            <li><strong>Scalable Typography Up to 48px</strong>: adjust font sizing instantly for effortless reading from a distance of over 5 feet from the lectern.</li>
+            <li><strong>Homiletic Outline Teleprompter Desk</strong>: a synchronized side panel keeps your sermon outline points, illustrations, and pastoral notes in view alongside the Scripture text.</li>
+            <li><strong>Live Sermon Countdown Stopwatch</strong>: configurable preaching timer (e.g., 20, 30, or 45 minutes) with discreet chromatic indicators (amber at 5 minutes remaining, crimson when over time).</li>
+          </ul>
+
+          <h4>8.2 Instant 16:9 Widescreen Slide Deck Generator</h4>
+          <p>
+            With one click, convert your passage analysis into a pristine 1080p/4K widescreen slide presentation tailored for church sanctuary beamers or live streaming:
+          </p>
+          <ul>
+            <li><strong>Noble Typographic Layout</strong>: automatically styles scripture verses with distinguished serif typography, free from visual clutter.</li>
+            <li><strong>Sermon Outline Slides</strong>: generates presentation slides matching the 3 homiletical points extracted during exegesis.</li>
+            <li><strong>Multi-Monitor Popout Window</strong>: casts slides to external projection screens (HDMI, DisplayPort, AirPlay) while preserving the preacher HUD on your primary laptop screen.</li>
+          </ul>
+
+          <h4>8.3 A4 Homiletic Study Sheet for Pulpit & Small Groups</h4>
+          <p>
+            Compiles and prints a structured A4 single-sheet study guide for pastoral binders or distribution to cell group leaders:
+          </p>
+          <ul>
+            <li>Bilingual Scripture text (vernacular translation + Hebrew/Greek original).</li>
+            <li>Concise historical setting and grammatical background.</li>
+            <li>Three-point sermon framework with discussion questions for daily living.</li>
+          </ul>
+
+          <h4>8.4 Applied Pastoral Counseling Case Studies</h4>
+          <p>
+            A dedicated clinical-pastoral database guiding pastors through grief, marriage counseling, youth discipleship, and spiritual warfare through relevant scriptural foundations.
+          </p>
+        </div>
+        <div class="lang-es">
+          <h3>8. Hub Predicación, Modo Púlpito Fullscreen & Diapositivas 16:9</h3>
+          <p>
+            El sexto hub (<strong>🎙️ Predicación & Ministerio</strong>) ha sido diseñado en estrecha colaboración con predicadores expositivos y profesores de homilética para conectar el estudio del despacho con el púlpito de proclamación.
+          </p>
+
+          <h4>8.1 Modo Púlpito Fullscreen HUD (Vista de Alto Contraste para el Escenario)</h4>
+          <p>
+            Activado con un clic o con la tecla <code>F11</code>, transforma tu pantalla en un atril digital de alta visibilidad:
+          </p>
+          <ul>
+            <li><strong>Lienzo Oscuro Antirreflejo</strong>: fondo negro azabache con tipografía de alto contraste para evitar reflejos bajo los focos del púlpito.</li>
+            <li><strong>Tipografía Escalable hasta 48px</strong>: ajusta el tamaño del texto para permitir una lectura nítida a más de metro y medio de distancia del atril.</li>
+            <li><strong>Teleprompter de Notas Homiléticas</strong>: un panel lateral sincronizado permite consultar tus notas del sermón (puntos clave, ilustraciones, citas) junto a los versículos bíblicos.</li>
+            <li><strong>Cronómetro Oratorio & Temporizador</strong>: cuenta regresiva configurable (ej. 20, 30 o 45 minutos) con advertencias cromáticas discretas (ámbar a falta de 5 minutos, rojo al superar el tiempo).</li>
+          </ul>
+
+          <h4>8.2 Generador Instantáneo de Diapositivas 16:9 Panorámicas</h4>
+          <p>
+            En un solo clic, convierte el pasaje estudiado en una presentación panorámica de diapositivas en 1080p/4K lista para proyectar en el proyector de la iglesia o transmisión en vivo:
+          </p>
+          <ul>
+            <li><strong>Maquetación Tipográfica Noble</strong>: presenta los versículos bíblicos con tipografía elegante sin distracciones visuales.</li>
+            <li><strong>Diapositivas de Puntos Homiléticos</strong>: genera diapositivas correspondientes a los tres puntos clave del bosquejo del sermón.</li>
+            <li><strong>Soporte Multi-Monitor / Ventana Popout</strong>: proyecta las diapositivas en el segundo monitor o proyector externo conservando las notas de apoyo en tu pantalla principal.</li>
+          </ul>
+
+          <h4>8.3 Ficha Homilética A4 para el Púlpito & Células Bíblicas</h4>
+          <p>
+            Genera e imprime en un clic la guía en formato A4, idónea para la carpeta del predicador o para su entrega a líderes de células y discipulado:
+          </p>
+          <ul>
+            <li>Texto bíblico bilingüe (traducción vernácula + original hebreo/griego).</li>
+            <li>Contexto histórico y marco gramatical sintético.</li>
+            <li>Estructura de tres puntos del mensaje con preguntas prácticas para la vida cotidiana.</li>
+          </ul>
+
+          <h4>8.4 Archivo de Casos Clínico-Pastorales Aplicados</h4>
+          <p>
+            Módulo especializado de consejería bíblica para orientar al pastor en situaciones de duelo, crisis matrimonial, discipulado y guía espiritual a la luz de las Escrituras.
+          </p>
+        </div>
+      </section>\n\n      <!-- CAP9 -->
+      <section id="cap9" class="chapter-card glass-panel">
+        <div class="lang-it">
+          <h3>9. Hub Storia Sacra, Atlante WGS84 4D, Mappe & Personaggi Biblici</h3>
+          <p>
+            Il settimo hub (<strong>🌍 Storia & Geografia Sacra</strong>) ricostruisce il retroterra spazio-temporale della Bibbia mediante georeferenziazione satellitare e banche dati prosopografiche.
+          </p>
+
+          <h4>9.1 Atlante Sacro Georeferenziato WGS84 (1.652 Località Bibliche)</h4>
+          <p>
+            Tutti i toponimi della Scrittura (dalle sorgenti dell'Eden ai porti del Mediterraneo apostolico) sono stati mappati con coordinate geodetiche WGS84 certificate da <em>OpenBible</em>:
+          </p>
+          <ul>
+            <li><strong>Livelli di Certezza Archeologica</strong>: ogni località riporta il proprio grado di affidabilità scientifica (<em>Certa, Molto Probabile, Ipotetica</em>) basato su scavi e fonti documentali.</li>
+            <li><strong>Rilievi Topografici 4D & Altitudini</strong>: visualizza le valli, le catene montuose e i bacini idrografici per comprendere i dislivelli storici (es. la salita da Gerico a Gerusalemme con oltre 1.000 metri di dislivello positivo).</li>
+          </ul>
+
+          <h4>9.2 Mappe Storiche Interattive & Rotte Calcolate</h4>
+          <p>
+            Esplora mappe dinamiche su motore Leaflet/WebGL con itinerari vettoriali calcolati punto per punto:
+          </p>
+          <ul>
+            <li><strong>L'Esodo dall'Egitto</strong>: la rotta tradizionale attraverso il Mar Rosso, l'accampamento al Monte Sinai e i quarant'anni nel deserto verso le pianure di Moab.</li>
+            <li><strong>La Conquista di Canaan</strong>: le campagne militari guidate da Giosuè (centrale, meridionale e settentrionale) e la spartizione tribale della terra.</li>
+            <li><strong>I Viaggi Missionari dell'Apostolo Paolo</strong>: il 1° viaggio in Galazia, il 2° viaggio in Macedonia e Acaia, il 3° viaggio a Efeso e il viaggio verso Roma da prigioniero con naufragio a Malta.</li>
+            <li><strong>Il Ministero Terreno di Gesù</strong>: gli spostamenti in Galilea, Samaria, Perea e Giudea fino all'ingresso trionfale a Gerusalemme.</li>
+            <li><strong>Map Creator Studio</strong>: traccia nuovi percorsi personalizzati, aggiungi punti d'interesse ed esporta mappe ad alta risoluzione per i tuoi studi.</li>
+          </ul>
+
+          <h4>9.3 Cronologia Multitraccia Continua (9 Epoche Bibliche & 6 Imperi)</h4>
+          <p>
+            Un asse temporale sincronizzato che si estende dalla Creazione (-4004 a.C.) fino alla fine del I secolo d.C.:
+          </p>
+          <ul>
+            <li><strong>Corsia degli Imperi Mondiali</strong>: Impero Egizio, Assiro, Babilonese, Medo-Persiano, Greco-Macedone e Romano.</li>
+            <li><strong>Corsia delle Epoche Bibliche</strong>: Patriarchi, Schiavitù in Egitto, Giudici, Regno Unito, Regno Diviso, Esilio a Babilonia, Ritorno ed Era Neotestamentaria.</li>
+            <li><strong>Corsia dei Reperti Archeologici</strong>: Stele di Merneptah, Cilindro di Ciro, Prisma di Sennacherib, Iscrizione di Tel Dan e Rotoli di Qumran.</li>
+          </ul>
+
+          <h4>9.4 Enciclopedia Prosopografica dei 631 Personaggi Biblici</h4>
+          <p>
+            Database relazionale contenente tutti i personaggi dell'Antico e Nuovo Testamento:
+          </p>
+          <ul>
+            <li><strong>Alberi Genealogici Dinastici</strong>: esplora le linee di discendenza patriarcali, levitiche e la genealogia davidica e messianica di Gesù Cristo.</li>
+            <li><strong>Scheda Biografica Completa</strong>: significato ed etimologia originale del nome in ebraico/greco, alleanze, cronologia biografica ed elenco completo delle occorrenze scritturali.</li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <h3>9. Sacred History, WGS84 4D Atlas, Maps & Characters Hub</h3>
+          <p>
+            The seventh hub (<strong>🌍 Sacred History & Geography</strong>) reconstructs the spatial and chronological setting of Scripture through high-precision satellite cartography and prosopographical databases.
+          </p>
+
+          <h4>9.1 WGS84 Georeferenced Sacred Atlas (1,652 Biblical Locations)</h4>
+          <p>
+            Every biblical site (from the Tigris and Euphrates basins to apostolic Mediterranean seaports) is geocoded with high-precision WGS84 satellite coordinates certified by <em>OpenBible</em>:
+          </p>
+          <ul>
+            <li><strong>Archaeological Certainty Levels</strong>: every placename denotes its scholarly identification certainty (<em>Confirmed, Highly Probable, Hypothetical</em>) supported by excavation logs.</li>
+            <li><strong>4D Topographic Elevation Profiles</strong>: inspect terrain, mountain ranges, and valleys to comprehend physical distances (e.g., the steep 3,300-foot ascent from Jericho to Jerusalem).</li>
+          </ul>
+
+          <h4>9.2 Interactive Historical Cartography & Vector Routes</h4>
+          <p>
+            Navigate dynamic maps running on Leaflet/WebGL with pre-calculated historical journey vectors:
+          </p>
+          <ul>
+            <li><strong>The Exodus from Egypt</strong>: traditional Red Sea crossing, encampment at Mount Sinai, and the 40-year wilderness wanderings to the plains of Moab.</li>
+            <li><strong>The Conquest of Canaan</strong>: central, southern, and northern campaigns under Joshua, followed by tribal territorial allotments.</li>
+            <li><strong>The Apostle Paul's Missionary Journeys</strong>: 1st Journey across Galatia, 2nd Journey to Macedonia/Achaia, 3rd Journey centered in Ephesus, and the final Prisoner's Voyage to Rome with shipwreck at Malta.</li>
+            <li><strong>Jesus' Earthly Ministry</strong>: journeys throughout Galilee, Samaria, Perea, and Judea culminating in Passion Week at Jerusalem.</li>
+            <li><strong>Map Creator Studio</strong>: trace custom expedition paths, pin archaeological markers, and export high-resolution cartographic assets.</li>
+          </ul>
+
+          <h4>9.3 Continuous Multi-Track Timeline (9 Biblical Eras & 6 World Empires)</h4>
+          <p>
+            A continuous synchronized timeline extending from Creation (-4004 BC) to the end of the 1st century AD:
+          </p>
+          <ul>
+            <li><strong>World Empires Track</strong>: Egyptian, Assyrian, Neo-Babylonian, Medo-Persian, Greco-Macedonian, and Roman Empires.</li>
+            <li><strong>Biblical Eras Track</strong>: Patriarchal Age, Egyptian Bondage, Judges, United Monarchy, Divided Kingdom, Babylonian Exile, Post-Exilic Restoration, and Apostolic Age.</li>
+            <li><strong>Archaeological Artifacts Track</strong>: Merneptah Stele, Cyrus Cylinder, Sennacherib's Prism, Tel Dan Inscription, and Dead Sea Scrolls.</li>
+          </ul>
+
+          <h4>9.4 Prosopographical Encyclopedia of 631 Biblical Characters</h4>
+          <p>
+            Comprehensive relational biographical directory cataloging all Old and New Testament individuals:
+          </p>
+          <ul>
+            <li><strong>Dynastic Family Trees</strong>: interactively trace patriarchal lineages, Aaronic priesthood successions, and the Davidic messianic royal genealogy of Jesus Christ.</li>
+            <li><strong>Full Character Dossiers</strong>: original Hebrew/Greek etymological name meanings, biographical timelines, kinship relations, and complete biblical citation concordances.</li>
+          </ul>
+        </div>
+        <div class="lang-es">
+          <h3>9. Hub Historia Sagrada, Atlas WGS84 4D, Mapas & Personajes Bíblicos</h3>
+          <p>
+            El séptimo hub (<strong>🌍 Historia & Geografía Sagrada</strong>) reconstruye el marco espacio-temporal de la Biblia mediante cartografía satelital georreferenciada y bases de datos prosopográficas.
+          </p>
+
+          <h4>9.1 Atlas Sagrado Georreferenciado WGS84 (1.652 Lugares Bíblicos)</h4>
+          <p>
+            Todos los topónimos de las Escrituras (desde los valles del Creciente Fértil hasta los puertos mediterráneos del imperio romano) cuentan con coordenadas satelitales WGS84 certificadas por <em>OpenBible</em>:
+          </p>
+          <ul>
+            <li><strong>Niveles de Certeza Arqueológica</strong>: cada yacimiento indica su grado de certeza científica (<em>Confirmado, Muy Probable, Hipotético</em>) respaldado por excavaciones documentadas.</li>
+            <li><strong>Relieves Topográficos 4D & Altitud</strong>: examina las cadenas montañosas, valles y fallas para comprender los desniveles reales (ej. la subida de Jericó a Jerusalén con más de 1.000 metros de desnivel positivo).</li>
+          </ul>
+
+          <h4>9.2 Mapas Históricos Interactivos & Rutas Bíblicas Trazadas</h4>
+          <p>
+            Navega sobre mapas dinámicos en motor Leaflet/WebGL con rutas históricas vectoriales:
+          </p>
+          <ul>
+            <li><strong>El Éxodo de Egipto</strong>: la ruta a través del Mar Rojo, el campamento en el Monte Sinaí y los 40 años en el desierto hacia las llanuras de Moab.</li>
+            <li><strong>La Conquista de Canaán</strong>: campañas militares lideradas por Josué y la posterior división de la tierra entre las doce tribus.</li>
+            <li><strong>Los Viajes Misioneros del Apóstol Pablo</strong>: 1º viaje a Galacia, 2º viaje a Macedonia y Acaya, 3º viaje con base en Éfeso y el viaje de cautiverio a Roma con naufragio en Malta.</li>
+            <li><strong>El Ministerio de Jesús en la Tierra</strong>: itinerarios en Galilea, Samaria, Perea y Judea hasta la entrada triunfal en Jerusalén.</li>
+            <li><strong>Map Creator Studio</strong>: traza recorridos propios, coloca marcadores arqueológicos y exporta mapas en alta definición para tus estudios.</li>
+          </ul>
+
+          <h4>9.3 Cronología Multitrack Continua (9 Épocas Bíblicas & 6 Imperios)</h4>
+          <p>
+            Eje cronológico sincronizado que abarca desde la Creación (-4004 a.C.) hasta finales del siglo I d.C.:
+          </p>
+          <ul>
+            <li><strong>Carril de Imperios Mundiales</strong>: Imperios Egipcio, Asirio, Babilónico, Medo-Persa, Greco-Macedonio y Romano.</li>
+            <li><strong>Carril de Épocas Bíblicas</strong>: Patriarcas, Cautiverio en Egipto, Jueces, Reino Unido, Reino Dividido, Exilio en Babilonia, Restauración y Era Apostólica.</li>
+            <li><strong>Carril de Hallazgos Arqueológicos</strong>: Estela de Merneptah, Cilindro de Ciro, Prisma de Senaquerib, Inscripción de Tel Dan y Rollos del Mar Muerto.</li>
+          </ul>
+
+          <h4>9.4 Enciclopedia Prosopográfica de los 631 Personajes Bíblicos</h4>
+          <p>
+            Base de datos biográfica relacional de todos los personajes del Antiguo y Nuevo Testamento:
+          </p>
+          <ul>
+            <li><strong>Árboles Genealógicos Dinásticos</strong>: visualiza las líneas patriarcales, el sacerdocio levítico y la genealogía davídica mesiánica de Jesucristo.</li>
+            <li><strong>Ficha Biográfica Exhaustiva</strong>: significado y etimología original del nombre en hebreo o griego, cronología vital, lazos familiares y concordancia bíblica completa.</li>
+          </ul>
+        </div>
+      </section>\n\n      <!-- CAP10 -->
+      <section id="cap10" class="chapter-card glass-panel">
+        <div class="lang-it">
+          <h3>10. Configurazione Visual Router AI & Sovranità dei Dati</h3>
+          <p>
+            Il decimo capitolo è dedicato al <strong>Visual Router AI</strong>, il modulo di routing intelligente che incarna la filosofia di libertà assoluta e indipendenza economica di BibleTime AI Scholar Suite.
+          </p>
+
+          <h4>10.1 Filosofia Zero-Subscription & Neutralità Tecnologica</h4>
+          <p>
+            A differenza di altri software che obbligano a pagare 30, 50 o 80 euro al mese per utilizzare le loro funzioni di intelligenza artificiale, BibleTime:
+          </p>
+          <ul>
+            <li><strong>Non applica alcun canone ricorrente</strong>: la licenza software a vita è perpetua.</li>
+            <li><strong>Zero Ricarichi sui Token</strong>: il software comunica direttamente tra il tuo PC e i server dei fornitori AI ufficiali mediante crittografia TLS.</li>
+            <li><strong>Libertà Totale di Scelta</strong>: puoi alternare in qualsiasi istante provider gratuiti, chiavi commerciali a consumo o modelli locali offline senza connessione.</li>
+          </ul>
+
+          <h4>10.2 Guida Passo-Passo ai Provider Gratuiti a Costo Zero</h4>
+          <p>Consigliati per iniziare immediatamente senza spendere un solo centesimo:</p>
+          <ul>
+            <li>
+              <strong>Mistral AI (La Scelta Più Consigliata — Veloce, Precisa e Gratuita)</strong>:<br>
+              1. Vai su <a href="https://console.mistral.ai" target="_blank" style="color: var(--cyan);">console.mistral.ai</a> e accedi con il tuo account Google.<br>
+              2. Apri la sezione <em>"API Keys"</em> e clicca su <em>"Create new key"</em>.<br>
+              3. Incolla la chiave generata nel Visual Router di BibleTime sotto la voce <strong>Mistral AI</strong>.
+            </li>
+            <li style="margin-top: 0.6rem;">
+              <strong>Google Gemini (Gratuito con il Normale Account Google)</strong>:<br>
+              1. Visita <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--cyan);">aistudio.google.com/app/apikey</a>.<br>
+              2. Clicca su <em>"Create API Key"</em>, copia il codice e incollalo nel Visual Router sotto <strong>Gemini</strong>.
+            </li>
+            <li style="margin-top: 0.6rem;">
+              <strong>OpenRouter (Hub con Modelli Gratuiti <code>:free</code>)</strong>:<br>
+              1. Accedi a <a href="https://openrouter.ai/keys" target="_blank" style="color: var(--cyan);">openrouter.ai/keys</a> e crea una chiave.<br>
+              2. Nel Visual Router potrai selezionare modelli eccellenti e gratuiti come <code>deepseek/deepseek-r1:free</code> o <code>meta-llama/llama-3.3-70b-instruct:free</code>.
+            </li>
+          </ul>
+
+          <h4>10.3 Collegamento Chiavi a Pagamento Commerciali (BYOK — Bring Your Own Key)</h4>
+          <p>
+            Se possiedi già un account sviluppatore commerciale con i laboratori leader mondiali, puoi inserire le tue chiavi personali:
+          </p>
+          <ul>
+            <li><strong>OpenAI (GPT-4o, GPT-4o-mini, o1, o3-mini)</strong>: inserisci la chiave <code>sk-...</code> generata su <a href="https://platform.openai.com" target="_blank" style="color: var(--cyan);">platform.openai.com</a>.</li>
+            <li><strong>Anthropic (Claude 3.5 Sonnet, Claude 3 Opus)</strong>: rinomato per la precisione filologica e l'eleganza formale del testo espositivo (<a href="https://console.anthropic.com" target="_blank" style="color: var(--cyan);">console.anthropic.com</a>).</li>
+            <li><strong>DeepSeek API (DeepSeek-V3 & DeepSeek-R1)</strong>: ragionamento logico avanzato a tariffe wholesale estremamente contenute (<a href="https://platform.deepseek.com" target="_blank" style="color: var(--cyan);">platform.deepseek.com</a>).</li>
+            <li><strong>Cerebras, Groq & Sambanova</strong>: motori di inferenza ultra-rapidi per analisi esegetiche istantanee in frazioni di secondo.</li>
+          </ul>
+
+          <h4>10.4 Esecuzione 100% Offline & On-Premise (Ollama & LM Studio)</h4>
+          <p>
+            Per gli studiosi che necessitano di lavorare in totale assenza di rete internet (missioni all'estero, ritiri spirituali o massima riservatezza istituzionale):
+          </p>
+          <ul>
+            <li>Installa <strong>Ollama</strong> (o LM Studio) sul tuo computer da <a href="https://ollama.ai" target="_blank" style="color: var(--cyan);">ollama.ai</a>.</li>
+            <li>Scarica un modello open-source con il comando da terminale: <code>ollama run llama3.3</code> oppure <code>ollama run mistral-nemo</code>.</li>
+            <li>Nel Visual Router di BibleTime attiva la voce <strong>Ollama / Local LLM</strong> (porta standard <code>http://127.0.0.1:11434</code>): tutti gli studi verranno eseguiti direttamente dalla GPU o CPU del tuo computer senza che un solo byte lasci il tuo dispositivo.</li>
+          </ul>
+
+          <h4>10.5 Monitoraggio della Telemetria & Risparmio Economico</h4>
+          <p>
+            La scheda telemetria calcola in tempo reale i token consumati, il tempo di risposta in millisecondi e l'equivalente economico risparmiato rispetto a un abbonamento commerciale tradizionale.
+          </p>
+
+          <h4>10.6 Auto-Pilota del Virtual Router & Aggiornamenti Live</h4>
+          <p>
+            Dalla versione <strong>v1.0.57</strong> il Virtual Router include il motore <strong>Auto-Pilota</strong>: non devi mai configurare manualmente i singoli modelli.
+          </p>
+          <ul>
+            <li><strong>Cascata Automatica Intra-Provider</strong>: se un modello restituisce errore, rate-limit (<code>429</code>) o credito esaurito (<code>402</code>), il router passa automaticamente al modello gratuito o al provider sano successivo.</li>
+            <li><strong>Assegnazione Intelligente M1 / M2 / M3</strong>: con un solo clic sul pulsante <em>Auto-Pilota</em> (oppure all'avvio) i 3 ruoli esegetici vengono bilanciati in base a velocità, latenza e stato di salute reale delle tue chiavi API.</li>
+            <li><strong>Notifiche Aggiornamenti Live</strong>: quando è disponibile una nuova patch, nella barra laterale sinistra appare un badge luminoso che ti porta con 1 clic alla schermata di aggiornamento.</li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <h3>10. AI Visual Router Configuration & Data Sovereignty</h3>
+          <p>
+            The tenth chapter is dedicated to the <strong>AI Visual Router</strong>, the intelligent orchestration engine embodying BibleTime AI Scholar Suite's philosophy of economic transparency and user freedom.
+          </p>
+
+          <h4>10.1 Zero-Subscription Philosophy & Technological Neutrality</h4>
+          <p>
+            Unlike closed software suites that mandate recurring monthly subscriptions of $30 to $80 to access artificial intelligence:
+          </p>
+          <ul>
+            <li><strong>Zero Recurring Subscription Fees</strong>: your software lifetime license is perpetual.</li>
+            <li><strong>Zero Middleman Markups on Tokens</strong>: BibleTime communicates directly from your device to official AI API servers via encrypted TLS.</li>
+            <li><strong>Absolute Flexibility</strong>: seamlessly switch between free zero-cost models, pay-as-you-go commercial developer keys, or 100% offline local models.</li>
+          </ul>
+
+          <h4>10.2 Step-by-Step Guide to Free Zero-Cost AI Providers</h4>
+          <p>Recommended to start researching immediately without spending a dime:</p>
+          <ul>
+            <li>
+              <strong>Mistral AI (Top Recommendation — Fast, Accurate & Free)</strong>:<br>
+              1. Navigate to <a href="https://console.mistral.ai" target="_blank" style="color: var(--cyan);">console.mistral.ai</a> and sign in with Google.<br>
+              2. Open <em>"API Keys"</em>, click <em>"Create new key"</em>.<br>
+              3. Paste the generated key into BibleTime's Visual Router under <strong>Mistral AI</strong>.
+            </li>
+            <li style="margin-top: 0.6rem;">
+              <strong>Google Gemini (Free with Standard Google Account)</strong>:<br>
+              1. Head to <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--cyan);">aistudio.google.com/app/apikey</a>.<br>
+              2. Click <em>"Create API Key"</em>, copy the string, and paste it into Visual Router under <strong>Gemini</strong>.
+            </li>
+            <li style="margin-top: 0.6rem;">
+              <strong>OpenRouter (Universal AI Hub with Free <code>:free</code> Models)</strong>:<br>
+              1. Visit <a href="https://openrouter.ai/keys" target="_blank" style="color: var(--cyan);">openrouter.ai/keys</a> and generate a key.<br>
+              2. In Visual Router, select zero-cost models such as <code>deepseek/deepseek-r1:free</code> or <code>meta-llama/llama-3.3-70b-instruct:free</code>.
+            </li>
+          </ul>
+
+          <h4>10.3 Connecting Commercial Developer Keys (BYOK — Bring Your Own Key)</h4>
+          <p>
+            If you already maintain a commercial developer account with frontier AI labs, you can plug in your own credentials:
+          </p>
+          <ul>
+            <li><strong>OpenAI (GPT-4o, GPT-4o-mini, o1, o3-mini)</strong>: paste your <code>sk-...</code> key from <a href="https://platform.openai.com" target="_blank" style="color: var(--cyan);">platform.openai.com</a>.</li>
+            <li><strong>Anthropic (Claude 3.5 Sonnet, Claude 3 Opus)</strong>: praised for philological rigor and articulate literary prose (<a href="https://console.anthropic.com" target="_blank" style="color: var(--cyan);">console.anthropic.com</a>).</li>
+            <li><strong>DeepSeek API (DeepSeek-V3 & DeepSeek-R1)</strong>: advanced reasoning at fractional wholesale token costs (<a href="https://platform.deepseek.com" target="_blank" style="color: var(--cyan);">platform.deepseek.com</a>).</li>
+            <li><strong>Cerebras, Groq & Sambanova</strong>: ultra-fast specialized inference hardware delivering sub-second exegetical responses.</li>
+          </ul>
+
+          <h4>10.4 100% Offline & On-Premise Execution (Ollama & LM Studio)</h4>
+          <p>
+            For scholars operating without internet connectivity (field mission trips, spiritual retreats, or strict organizational data security):
+          </p>
+          <ul>
+            <li>Install <strong>Ollama</strong> (or LM Studio) on your computer from <a href="https://ollama.ai" target="_blank" style="color: var(--cyan);">ollama.ai</a>.</li>
+            <li>Download an open-weights model via terminal: <code>ollama run llama3.3</code> or <code>ollama run mistral-nemo</code>.</li>
+            <li>Enable <strong>Ollama / Local LLM</strong> in BibleTime's Visual Router (standard port <code>http://127.0.0.1:11434</code>): all exegetical computations run directly on your hardware GPU/CPU with zero internet reliance.</li>
+          </ul>
+
+          <h4>10.5 Telemetry Auditing & Cost Transparency</h4>
+          <p>
+            The telemetry tab provides real-time tracking of token volumes, response latency in milliseconds, and cumulative cost savings compared to closed monthly subscription software.
+          </p>
+
+          <h4>10.6 Virtual Router Auto-Pilot & Live Update Badge</h4>
+          <p>
+            Starting from <strong>v1.0.57</strong>, the Virtual Router includes the <strong>Auto-Pilot</strong> engine: you never have to manually pick or troubleshoot individual models.
+          </p>
+          <ul>
+            <li><strong>Automatic Intra-Provider Cascade</strong>: if a model hits a rate limit (<code>429</code>), outage, or depleted balance (<code>402</code>), the router automatically falls back to the next healthy free model or active provider.</li>
+            <li><strong>Smart M1 / M2 / M3 Assignment</strong>: automatically on startup (or with 1 click on <em>Auto-Pilot</em>), the 3 exegetical slots are balanced using real-time latency and health scoring across your API keys.</li>
+            <li><strong>Live Update Notifications</strong>: whenever a new patch is released, a live badge appears in the left sidebar for 1-click access to the updater.</li>
+          </ul>
+        </div>
+        <div class="lang-es">
+          <h3>10. Configuración del Router IA & Soberanía de Datos</h3>
+          <p>
+            El décimo capítulo está dedicado al <strong>Router IA Visual</strong>, el módulo de orquestación inteligente que encarna la filosofía de soberanía económica y libertad del usuario de BibleTime AI Scholar Suite.
+          </p>
+
+          <h4>10.1 Filosofía Sin Suscripciones & Neutralidad Tecnológica</h4>
+          <p>
+            A diferencia de los programas cerrados que exigen cuotas mensuales recurrentes de 30 a 80 euros para acceder a funciones de inteligencia artificial:
+          </p>
+          <ul>
+            <li><strong>Cero Suscripciones Recurrentes</strong>: tu licencia perpetua de software es de por vida.</li>
+            <li><strong>Cero Comisiones sobre Tokens</strong>: BibleTime se comunica directamente desde tu equipo a los servidores oficiales mediante cifrado seguro TLS.</li>
+            <li><strong>Libertad Absoluta de Elección</strong>: alterna cuando desees entre proveedores gratuitos sin coste, claves comerciales de pago por consumo o modelos locales sin internet.</li>
+          </ul>
+
+          <h4>10.2 Guía Paso a Paso para Proveedores Gratuitos Sin Coste</h4>
+          <p>Recomendados para comenzar de inmediato sin gastar un solo céntimo:</p>
+          <ul>
+            <li>
+              <strong>Mistral AI (La Más Recomendada — Rápida, Precisa y Gratuita)</strong>:<br>
+              1. Visita <a href="https://console.mistral.ai" target="_blank" style="color: var(--cyan);">console.mistral.ai</a> e inicia sesión con tu cuenta Google.<br>
+              2. Abre <em>"API Keys"</em> y pulsa en <em>"Create new key"</em>.<br>
+              3. Pega la clave en el Router IA de BibleTime en la casilla <strong>Mistral AI</strong>.
+            </li>
+            <li style="margin-top: 0.6rem;">
+              <strong>Google Gemini (Gratis con tu Cuenta Habitual de Google)</strong>:<br>
+              1. Accede a <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--cyan);">aistudio.google.com/app/apikey</a>.<br>
+              2. Pulsa en <em>"Create API Key"</em>, copia el código y pégalo en el Router IA bajo <strong>Gemini</strong>.
+            </li>
+            <li style="margin-top: 0.6rem;">
+              <strong>OpenRouter (Hub con Modelos Gratuitos <code>:free</code>)</strong>:<br>
+              1. Visita <a href="https://openrouter.ai/keys" target="_blank" style="color: var(--cyan);">openrouter.ai/keys</a> y genera una clave.<br>
+              2. En el Router IA podrás seleccionar modelos gratuitos de primer nivel como <code>deepseek/deepseek-r1:free</code> o <code>meta-llama/llama-3.3-70b-instruct:free</code>.
+            </li>
+          </ul>
+
+          <h4>10.3 Conexión de Claves Comerciales de Pago (BYOK — Trae tu Propia Clave)</h4>
+          <p>
+            Si ya dispones de una cuenta comercial de desarrollador con los principales laboratorios de IA del mundo, puedes conectar tus credenciales:
+          </p>
+          <ul>
+            <li><strong>OpenAI (GPT-4o, GPT-4o-mini, o1, o3-mini)</strong>: introduce tu clave <code>sk-...</code> de <a href="https://platform.openai.com" target="_blank" style="color: var(--cyan);">platform.openai.com</a>.</li>
+            <li><strong>Anthropic (Claude 3.5 Sonnet, Claude 3 Opus)</strong>: elogiado por su rigor filológico y prosa literaria en la exposición bíblica (<a href="https://console.anthropic.com" target="_blank" style="color: var(--cyan);">console.anthropic.com</a>).</li>
+            <li><strong>DeepSeek API (DeepSeek-V3 & DeepSeek-R1)</strong>: razonamiento de vanguardia a tarifas mínimas de consumo (<a href="https://platform.deepseek.com" target="_blank" style="color: var(--cyan);">platform.deepseek.com</a>).</li>
+            <li><strong>Cerebras, Groq & Sambanova</strong>: hardware de inferencia de velocidad extrema para análisis exegéticos en fracciones de segundo.</li>
+          </ul>
+
+          <h4>10.4 Ejecución 100% Offline & On-Premise (Ollama & LM Studio)</h4>
+          <p>
+            Para investigadores que requieren trabajar en ausencia de conexión a internet (misiones transculturales, retiros de oración o confidencialidad institucional):
+          </p>
+          <ul>
+            <li>Instala <strong>Ollama</strong> (o LM Studio) en tu equipo desde <a href="https://ollama.ai" target="_blank" style="color: var(--cyan);">ollama.ai</a>.</li>
+            <li>Descarga un modelo abierto desde la terminal: <code>ollama run llama3.3</code> o <code>ollama run mistral-nemo</code>.</li>
+            <li>En el Router IA de BibleTime activa la opción <strong>Ollama / Local LLM</strong> (puerto estándar <code>http://127.0.0.1:11434</code>): todos los cálculos se ejecutarán localmente en tu GPU/CPU sin emitir datos al exterior.</li>
+          </ul>
+
+          <h4>10.5 Monitorización de Telemetría & Ahorro Económico</h4>
+          <p>
+            El panel de telemetría audita en tiempo real los tokens consumidos, la latencia de respuesta en milisegundos y el ahorro económico acumulado en comparación con las cuotas fijas mensuales de mercado.
+          </p>
+
+          <h4>10.6 Piloto Automático del Router IA & Actualizaciones en Vivo</h4>
+          <p>
+            Desde la versión <strong>v1.0.57</strong>, el Router IA incorpora el motor <strong>Auto-Piloto</strong>: ya no necesitas configurar ni cambiar modelos manualmente.
+          </p>
+          <ul>
+            <li><strong>Cascada Automática Intra-Proveedor</strong>: si un modelo devuelve límite de tasa (<code>429</code>), fallo o saldo agotado (<code>402</code>), el router rota automáticamente al siguiente modelo gratuito o proveedor sano.</li>
+            <li><strong>Asignación Inteligente M1 / M2 / M3</strong>: al iniciar o con 1 clic en <em>Auto-Piloto</em>, los 3 roles exegéticos se asignan según la latencia real y la salud de tus claves API.</li>
+            <li><strong>Notificaciones de Actualización en Vivo</strong>: cuando sale un nuevo parche, aparece un distintivo luminoso en la barra lateral izquierda para actualizar con 1 clic.</li>
+          </ul>
+        </div>
+      </section>\n\n    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p data-i18n="footer_text">BibleTime AI Scholar Suite — Proprietà Intellettuale & Suite Accademica Esegetica.
+        Distribuito e fatturato da Alfa Omega S.r.l. Tutti i diritti riservati.</p>
+      <div style="margin-top: 0.75rem;">
+        <span style="color: var(--text-muted); font-size: 0.85rem;">Supporto accademico & assistenza licenze:</span>
+        <a href="mailto:bibletimeaisuite@gmail.com" style="color: var(--cyan); text-decoration: none; font-weight: 600; margin-left: 0.4rem;">
+          ✉️ bibletimeaisuite@gmail.com
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js"></script>
+</body>
+
+</html>
